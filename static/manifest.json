@@ -1,0 +1,12 @@
+{
+  "name": "טופס ביקור רגיל",
+  "short_name": "טופס ביקור",
+  "description": "מילוי טופס PDF לביקור רגיל",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#667eea",
+  "theme_color": "#667eea",
+  "orientation": "portrait",
+  "lang": "he",
+  "dir": "rtl"
+}

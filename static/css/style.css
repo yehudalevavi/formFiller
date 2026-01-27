@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
     line-height: 1.6;
@@ -102,10 +107,12 @@ header .subtitle {
     padding: 12px;
     border: 2px solid #e0e0e0;
     border-radius: 6px;
-    font-size: 1em;
+    font-size: 16px; /* Prevents iOS zoom */
     transition: all 0.3s ease;
     font-family: inherit;
     direction: rtl;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .form-group input[type="text"]:focus,
@@ -152,13 +159,23 @@ header .subtitle {
     align-items: center;
     cursor: pointer;
     font-weight: normal;
+    padding: 8px 12px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.checkbox-group label:active {
+    background: #e8e8e8;
 }
 
 .checkbox-group input[type="checkbox"] {
-    margin-left: 8px;
-    width: 18px;
-    height: 18px;
+    margin-left: 10px;
+    width: 22px;
+    height: 22px;
     cursor: pointer;
+    accent-color: #667eea;
 }
 
 /* Help Text */
@@ -176,17 +193,22 @@ header .subtitle {
     display: flex;
     gap: 15px;
     justify-content: center;
+    position: sticky;
+    bottom: 0;
+    border-top: 1px solid #e0e0e0;
 }
 
 .btn-primary,
 .btn-secondary {
-    padding: 14px 40px;
+    padding: 16px 40px;
     font-size: 1.1em;
     font-weight: 600;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 .btn-primary {
@@ -257,6 +279,17 @@ header .subtitle {
     margin: 20px 30px;
     border-radius: 6px;
     text-align: center;
+}
+
+/* Success Message */
+.success-message {
+    background: #4caf50;
+    color: white;
+    padding: 20px;
+    margin: 20px 30px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.1em;
 }
 
 /* PDF Upload Section */
@@ -419,32 +452,258 @@ header .subtitle {
     margin-bottom: 5px;
 }
 
-/* Responsive Design */
+/* ==========================================
+   MOBILE RESPONSIVE STYLES
+   ========================================== */
+
 @media (max-width: 768px) {
+    body {
+        padding: 0;
+        background: #667eea;
+    }
+
     .container {
-        margin: 10px;
+        margin: 0;
+        border-radius: 0;
+        min-height: 100vh;
+    }
+
+    header {
+        padding: 20px 15px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
     }
 
     header h1 {
-        font-size: 1.6em;
+        font-size: 1.5em;
+    }
+
+    header .subtitle {
+        font-size: 0.9em;
+    }
+
+    .form-section {
+        padding: 20px 15px;
+    }
+
+    .form-section h2 {
+        font-size: 1.4em;
+        margin-bottom: 15px;
+    }
+
+    .form-section h3 {
+        font-size: 1.15em;
+        margin: 20px 0 12px 0;
     }
 
     .form-row {
         flex-direction: column;
+        gap: 0;
     }
 
     .form-group,
-    .form-group.small {
+    .form-group.small,
+    .form-group.wide {
         min-width: 100%;
+        flex: none;
     }
 
-    .form-actions {
+    .form-group label {
+        font-size: 1em;
+        margin-bottom: 6px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="tel"],
+    .form-group input[type="email"],
+    .form-group textarea {
+        padding: 14px 12px;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+
+    .form-group textarea {
+        min-height: 100px;
+    }
+
+    /* Date group on mobile */
+    .date-group {
+        gap: 6px;
+    }
+
+    .date-group .small-input {
+        padding: 14px 8px;
+        text-align: center;
+    }
+
+    .date-group span {
+        font-size: 1.2em;
+    }
+
+    /* Checkbox groups on mobile - stack vertically */
+    .checkbox-group {
         flex-direction: column;
+        gap: 10px;
     }
 
-    .btn-primary,
-    .btn-secondary {
+    .checkbox-group label {
+        padding: 14px 16px;
+        font-size: 1em;
+        border-radius: 10px;
+        justify-content: flex-start;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+        width: 24px;
+        height: 24px;
+        margin-left: 12px;
+    }
+
+    /* Inline checkbox groups (yes/no options) stay horizontal */
+    .checkbox-group.inline {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .checkbox-group.inline label {
+        flex: 1;
+        min-width: 80px;
+        justify-content: center;
+    }
+
+    /* PDF Upload Section - Mobile */
+    .upload-section {
+        padding: 20px 15px;
+    }
+
+    .upload-instructions {
+        font-size: 0.95em;
+        line-height: 1.6;
+    }
+
+    .file-upload-display {
+        flex-direction: column;
+        padding: 20px;
+        text-align: center;
+        gap: 12px;
+    }
+
+    .file-name {
+        font-size: 0.95em;
+        word-break: break-all;
+    }
+
+    .btn-browse {
         width: 100%;
+        padding: 14px 20px;
+        font-size: 1em;
+    }
+
+    .upload-status {
+        padding: 14px;
+        font-size: 0.95em;
+    }
+
+    .upload-error {
+        font-size: 0.95em;
+    }
+
+    .upload-error ul {
+        margin-right: 20px;
+        margin-left: 0;
+    }
+
+    /* Form actions - at bottom of form (not fixed) */
+    .form-actions {
+        padding: 20px 15px;
+        flex-direction: row;
+        gap: 10px;
+        position: static;
+        background: #f8f9fa;
+    }
+
+    .btn-primary {
+        flex: 2;
+        padding: 14px 16px;
+        font-size: 1em;
+        border-radius: 8px;
+    }
+
+    .btn-secondary {
+        flex: 1;
+        padding: 14px 12px;
+        font-size: 0.9em;
+        border-radius: 8px;
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover {
+        transform: none;
+    }
+
+    /* No extra padding needed since buttons aren't fixed */
+    form {
+        padding-bottom: 0;
+    }
+
+    /* Error/Success messages */
+    .error-message,
+    .success-message {
+        margin: 15px;
+        padding: 15px;
+        position: static;
+    }
+
+    /* Loading spinner adjustments */
+    .loading p {
+        font-size: 1.1em;
+    }
+}
+
+/* Extra small devices (phones in portrait) */
+@media (max-width: 380px) {
+    header h1 {
+        font-size: 1.3em;
+    }
+
+    .form-section h2 {
+        font-size: 1.25em;
+    }
+
+    .date-group .small-input {
+        padding: 12px 6px;
+        font-size: 14px;
+    }
+
+    .file-upload-display {
+        padding: 15px;
+    }
+
+    .btn-browse {
+        padding: 12px 16px;
+    }
+}
+
+/* Landscape mode on mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .form-actions {
+        padding: 15px;
+    }
+
+    .btn-primary {
+        padding: 12px 16px;
+    }
+
+    .btn-secondary {
+        padding: 12px;
+    }
+}
+
+/* Safe area insets for notched phones */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    body {
+        padding-bottom: env(safe-area-inset-bottom);
     }
 }
 
@@ -456,7 +715,17 @@ header .subtitle {
 
     .form-actions,
     .loading,
-    .error-message {
+    .error-message,
+    .upload-section {
         display: none;
+    }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }
