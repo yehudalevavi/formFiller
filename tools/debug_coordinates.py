@@ -28,9 +28,9 @@ else:
 def create_debug_overlay():
     """Create overlay with grid and field labels"""
     packet = BytesIO()
-    can = canvas.Canvas(packet, pagesize=A4)
+    can = canvas.Canvas(packet, pagesize=letter)
 
-    width, height = A4
+    width, height = letter
 
     # Draw grid for all 4 pages
     for page in range(4):
