@@ -13,16 +13,27 @@ import os
 from .field_mapping import FORM_FIELDS, HEBREW_FONT_SIZE, CHECKBOX_SIZE
 
 # Register Hebrew font
-HEBREW_FONT_PATH = "/Library/Fonts/Arial Unicode.ttf"
-HEBREW_FONT_NAME = "ArialUnicode"
+# Try embedded font first (for deployment), then fall back to system font (for local dev)
+HEBREW_FONT_NAME = "NotoSansHebrew"
+FONT_REGISTERED = False
+
+# Get the project root directory (where fonts/ is located)
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+EMBEDDED_FONT_PATH = os.path.join(PROJECT_ROOT, "fonts", "NotoSansHebrew-Regular.ttf")
+SYSTEM_FONT_PATH = "/Library/Fonts/Arial Unicode.ttf"
 
 try:
-    if os.path.exists(HEBREW_FONT_PATH):
-        pdfmetrics.registerFont(TTFont(HEBREW_FONT_NAME, HEBREW_FONT_PATH))
+    if os.path.exists(EMBEDDED_FONT_PATH):
+        pdfmetrics.registerFont(TTFont(HEBREW_FONT_NAME, EMBEDDED_FONT_PATH))
+        FONT_REGISTERED = True
+        print(f"Using embedded Hebrew font: {EMBEDDED_FONT_PATH}")
+    elif os.path.exists(SYSTEM_FONT_PATH):
+        pdfmetrics.registerFont(TTFont(HEBREW_FONT_NAME, SYSTEM_FONT_PATH))
+        FONT_REGISTERED = True
+        print(f"Using system Hebrew font: {SYSTEM_FONT_PATH}")
     else:
-        # Fallback to system font if Arial Unicode not available
         HEBREW_FONT_NAME = "Helvetica"
-        print(f"Warning: Hebrew font not found at {HEBREW_FONT_PATH}, using Helvetica")
+        print(f"Warning: No Hebrew font found, using Helvetica")
 except Exception as e:
     print(f"Error registering Hebrew font: {e}")
     HEBREW_FONT_NAME = "Helvetica"
