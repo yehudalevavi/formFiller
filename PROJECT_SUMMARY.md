@@ -1,164 +1,131 @@
 # PDF Form Filler - Project Summary
 
-## Project Completed Successfully! ✓
+## Current Status: ✅ WORKING
 
-Your web application for filling the "Regular Visit" PDF form is ready to use.
+Web application for filling the "ביקור רגיל" (Regular Visit) PDF form for elderly care services.
 
 ## What Was Built
 
 ### 1. Backend (Python/Flask)
-- **Flask API** with endpoints for form filling and health checks
+- **Flask API** running on port 5001
 - **PDF Processing Engine** using coordinate-based overlay technique
-- **Hebrew Text Support** with proper RTL (right-to-left) rendering
-- **Field Mapping System** for all 80+ form fields across 4 pages
+- **Hebrew Text Support** with Arial Unicode font for proper RTL rendering
+- **Field Mapping System** based on actual PDF coordinate analysis
 
 ### 2. Frontend (HTML/CSS/JavaScript)
-- **Comprehensive Web Form** with all fields from the PDF
+- **Simplified Web Form** - only fields that need filling (pre-filled fields preserved)
 - **Hebrew Interface** with RTL layout
-- **Modern, Responsive Design** that works on desktop and mobile
-- **Client-side Validation** and form submission handling
+- **Modern, Responsive Design**
 
 ### 3. Development Tools
-- PDF analysis scripts for coordinate mapping
-- Test script with sample data
-- Git repository initialization
-- Comprehensive documentation
+- `auto_detect_fields.py` - PDF structure analysis
+- `debug_coordinates.py` - Visual coordinate debugging with grid overlay
+- `test_coordinates.py` - Test script with sample data
+
+## Key Design Decisions
+
+### Pre-filled Fields
+The original PDF template already contains pre-filled data for:
+- Office name (ש.קידר שרותים בע"מ)
+- Employer details (name, address, phone, ID)
+- Foreign worker details (passport, name, country, phone)
+
+**These fields are preserved** - the web form only collects data that needs to be filled in.
+
+### Fields That Need Filling
+- **Page 1**: Visit date only
+- **Page 2**: All employer assessment fields (appearance, health, cognitive status, etc.)
+- **Page 3**: Worker report and employment conditions
+- **Page 4**: Treatment plan and signatures
 
 ## Project Structure
 
 ```
 formFiller/
-├── app.py                  # Flask server - START HERE
-├── requirements.txt        # Dependencies
-├── README.md              # Full documentation
-├── src/backend/           # PDF processing logic
-├── templates/             # HTML form + PDF template
-├── static/                # CSS and JavaScript
-└── test_coordinates.py    # Testing utility
+├── app.py                      # Flask server (port 5001)
+├── requirements.txt            # Python dependencies
+├── README.md                   # Full documentation
+├── PROJECT_SUMMARY.md          # This file
+├── src/backend/
+│   ├── __init__.py
+│   ├── pdf_filler.py          # PDF filling logic with Hebrew font
+│   └── field_mapping.py       # Coordinate mappings (612x792 PDF)
+├── templates/
+│   ├── template.pdf           # Original PDF template
+│   └── form.html              # Web form interface
+├── static/
+│   ├── css/style.css
+│   └── js/app.js
+├── auto_detect_fields.py      # PDF analysis tool
+├── debug_coordinates.py       # Coordinate visualization
+├── test_coordinates.py        # Test with sample data
+└── venv/                      # Python virtual environment
 ```
 
 ## Quick Start
 
-1. **Install dependencies** (already done):
-   ```bash
-   source venv/bin/activate
-   pip install -r requirements.txt
-   ```
-
-2. **Start the server**:
-   ```bash
-   python app.py
-   ```
-
-3. **Open in browser**:
-   ```
-   http://localhost:5000
-   ```
-
-4. **Fill the form and generate PDF!**
-
-## Key Features
-
-✅ **No Data Storage** - Completely stateless, privacy-focused
-✅ **Hebrew RTL Support** - Properly formatted Hebrew text
-✅ **4-Page Form** - Complete mapping of all sections
-✅ **Modern UI** - Professional, easy-to-use interface
-✅ **Cloud Ready** - Easy to deploy to AWS, Azure, GCP
-✅ **Git Managed** - Ready for worktree-based development
-
-## Next Steps
-
-### Immediate Testing
-1. Run `python app.py` to start the server
-2. Open the web form in your browser
-3. Fill in some test data
-4. Generate a PDF and verify field positions
-
-### Fine-Tuning Coordinates
-The PDF coordinates are approximate and may need adjustment:
-
-1. Open `src/backend/field_mapping.py`
-2. Adjust `x` and `y` values for misaligned fields
-3. Run `python test_coordinates.py` to test changes
-4. Iterate until perfect alignment
-
-### Working with Git Worktrees
-For new features:
 ```bash
-# Create new worktree
-git worktree add ../formfiller-feature-name feature-name
+# Activate virtual environment
+source venv/bin/activate
 
-# Work in new directory
-cd ../formfiller-feature-name
+# Start the server
+python app.py
 
-# Make changes, commit, and merge
+# Open in browser
+open http://localhost:5001
 ```
 
-## Important Notes
+## Testing
 
-⚠️ **Coordinate Mapping**: The field coordinates are initial estimates. You'll likely need to adjust them by:
-- Opening the test PDF alongside the original
-- Comparing field positions
-- Adjusting coordinates in `field_mapping.py`
+Generate a test PDF with sample data:
+```bash
+python test_coordinates.py
+```
 
-⚠️ **Hebrew Fonts**: The system uses Helvetica for Hebrew text. For better Hebrew support, you can:
-- Add custom Hebrew fonts (e.g., Arial, David)
-- Register fonts with reportlab
-- Update `field_mapping.py` to use custom fonts
+Generate debug PDF with coordinate grid:
+```bash
+python debug_coordinates.py
+```
 
-⚠️ **PDF Template**: The template at `templates/template.pdf` is the original form. Don't delete it!
+## Technical Details
 
-## File Locations
+### PDF Specifications
+- Size: 612 x 792 points (US Letter)
+- 4 pages
+- Coordinates measured from bottom-left corner
 
-- **Main App**: `/Users/ylevavi/go/src/formFiller/app.py`
-- **Web Form**: `/Users/ylevavi/go/src/formFiller/templates/form.html`
-- **Field Mapping**: `/Users/ylevavi/go/src/formFiller/src/backend/field_mapping.py`
-- **PDF Template**: `/Users/ylevavi/go/src/formFiller/templates/template.pdf`
+### Hebrew Font
+- Using **Arial Unicode** (`/Library/Fonts/Arial Unicode.ttf`)
+- Proper RTL text rendering with `python-bidi` and `arabic-reshaper`
 
-## Testing Checklist
+### Coordinate System
+- X: 0 (left) to 612 (right)
+- Y: 0 (bottom) to 792 (top)
+- Field positions defined in `src/backend/field_mapping.py`
 
-- [ ] Start Flask server successfully
-- [ ] Open web form in browser
-- [ ] Fill in test data
-- [ ] Generate PDF
-- [ ] Verify all fields are positioned correctly
-- [ ] Test with real Hebrew data
-- [ ] Check PDF on different viewers (Preview, Acrobat, Chrome)
+## Known Issues / TODO
 
-## Future Enhancements
+- [ ] Fine-tune field coordinates for perfect alignment
+- [ ] Add form validation
+- [ ] Test on different PDF viewers
 
-Consider adding:
-- Form field validation before submission
-- Save form data to localStorage (auto-save)
-- Multiple PDF templates support
-- Database for storing submissions
-- User authentication for multi-user scenarios
-- Email PDF delivery
-- Export form data as JSON
+## Git History
 
-## Support
+```
+6d1464e Fix Hebrew font rendering and update field coordinates
+f06aa8b Add project summary documentation
+1c3ca72 Initial commit: PDF Form Filler web application
+```
 
-For coordinate adjustments or feature additions:
-1. Check `README.md` for detailed documentation
-2. Review `field_mapping.py` for field definitions
-3. Test changes with `test_coordinates.py`
+## Files Changed in Latest Update
 
-## Success Metrics
-
-Your app is working correctly if:
-✓ Server starts without errors
-✓ Form loads in browser
-✓ Form submission generates a PDF
-✓ PDF downloads automatically
-✓ Hebrew text appears correctly (RTL)
-✓ Most fields are in approximately correct positions
-
-**Note**: Perfect coordinate alignment requires iterative adjustment. This is normal!
+- `app.py` - Changed port to 5001
+- `src/backend/pdf_filler.py` - Added Arial Unicode font registration
+- `src/backend/field_mapping.py` - Updated coordinates based on PDF analysis
+- `templates/form.html` - Simplified to only show fillable fields
+- Added `auto_detect_fields.py` and `debug_coordinates.py`
 
 ---
 
-**Project Status**: ✅ COMPLETE AND READY FOR USE
-
-**Git Status**: ✅ All files committed to main branch
-
-**Next Action**: Start the server and test the application!
+**Server URL**: http://localhost:5001
+**Last Updated**: January 27, 2026
