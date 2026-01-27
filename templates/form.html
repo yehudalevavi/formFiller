@@ -9,15 +9,14 @@
 <body>
     <div class="container">
         <header>
-            <h1>טופס ביקור רגיל ליהודה</h1>
-            <p class="subtitle">מילוי טופס דיגיטלי לביקור בית</p>
+            <h1>טופס ביקור רגיל</h1>
+            <p class="subtitle">מילוי פרטי הביקור - פרטי המעסיק והעובד הזר כבר מולאו בטופס</p>
         </header>
 
         <form id="pdfForm">
-            <!-- Page 1: Header and Personal Details -->
+            <!-- Page 1: Visit Date Only (other fields pre-filled) -->
             <section class="form-section">
-                <h2>פרטי הביקור</h2>
-
+                <h2>תאריך הביקור</h2>
                 <div class="form-row">
                     <div class="form-group">
                         <label>תאריך הביקור</label>
@@ -29,196 +28,44 @@
                             <input type="text" name="visit_date_year" placeholder="שנה" maxlength="4" class="small-input">
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="office_name">שם הלשכה</label>
-                        <input type="text" id="office_name" name="office_name">
-                    </div>
-                </div>
-
-                <h3>כתובת המקסעם</h3>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="employer_street">רחוב</label>
-                        <input type="text" id="employer_street" name="employer_street">
-                    </div>
-                    <div class="form-group small">
-                        <label for="employer_house_number">מספר בית</label>
-                        <input type="text" id="employer_house_number" name="employer_house_number">
-                    </div>
-                    <div class="form-group small">
-                        <label for="employer_entrance">כניסה</label>
-                        <input type="text" id="employer_entrance" name="employer_entrance">
-                    </div>
-                    <div class="form-group small">
-                        <label for="employer_apartment">דירה</label>
-                        <input type="text" id="employer_apartment" name="employer_apartment">
-                    </div>
-                    <div class="form-group">
-                        <label for="employer_city">ישוב</label>
-                        <input type="text" id="employer_city" name="employer_city">
-                    </div>
-                    <div class="form-group">
-                        <label for="employer_phone">טלפון קווי</label>
-                        <input type="tel" id="employer_phone" name="employer_phone">
-                    </div>
-                </div>
-
-                <h3>פרטי העובד הסוציאלי</h3>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="social_worker_name">שם העובד הסוציאלי האחראי</label>
-                        <input type="text" id="social_worker_name" name="social_worker_name">
-                    </div>
-                    <div class="form-group">
-                        <label for="social_worker_phone">טלפון נייד</label>
-                        <input type="tel" id="social_worker_phone" name="social_worker_phone">
-                    </div>
                 </div>
             </section>
 
+            <!-- Page 2: Employer Assessment -->
             <section class="form-section">
-                <h2>פרטים אישיים של המעסיק (הקשיש)</h2>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="employer_last_name">שם משפחה</label>
-                        <input type="text" id="employer_last_name" name="employer_last_name">
-                    </div>
-                    <div class="form-group">
-                        <label for="employer_first_name">שם פרטי</label>
-                        <input type="text" id="employer_first_name" name="employer_first_name">
-                    </div>
-                    <div class="form-group">
-                        <label for="employer_id">מספר תעודת זהות</label>
-                        <input type="text" id="employer_id" name="employer_id" maxlength="9">
-                    </div>
-                </div>
-
-                <h3>כתובת המעסיק הנוכחית</h3>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="employer_current_street">רחוב</label>
-                        <input type="text" id="employer_current_street" name="employer_current_street">
-                    </div>
-                    <div class="form-group small">
-                        <label for="employer_current_house">מספר בית</label>
-                        <input type="text" id="employer_current_house" name="employer_current_house">
-                    </div>
-                    <div class="form-group small">
-                        <label for="employer_current_entrance">כניסה</label>
-                        <input type="text" id="employer_current_entrance" name="employer_current_entrance">
-                    </div>
-                    <div class="form-group small">
-                        <label for="employer_current_apartment">דירה</label>
-                        <input type="text" id="employer_current_apartment" name="employer_current_apartment">
-                    </div>
-                    <div class="form-group">
-                        <label for="employer_current_city">ישוב</label>
-                        <input type="text" id="employer_current_city" name="employer_current_city">
-                    </div>
-                    <div class="form-group small">
-                        <label for="employer_current_zipcode">מיקוד</label>
-                        <input type="text" id="employer_current_zipcode" name="employer_current_zipcode">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="employer_landline">טלפון קווי</label>
-                        <input type="tel" id="employer_landline" name="employer_landline">
-                    </div>
-                    <div class="form-group">
-                        <label for="employer_mobile">טלפון נייד</label>
-                        <input type="tel" id="employer_mobile" name="employer_mobile">
-                    </div>
-                    <div class="form-group">
-                        <label for="employer_email">דואר אלקטרוני</label>
-                        <input type="email" id="employer_email" name="employer_email">
-                    </div>
-                </div>
-            </section>
-
-            <section class="form-section">
-                <h2>פרטי העובד הזר</h2>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="worker_passport">מספר דרכון</label>
-                        <input type="text" id="worker_passport" name="worker_passport">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="worker_last_name">שם משפחה (לועזי)</label>
-                        <input type="text" id="worker_last_name" name="worker_last_name">
-                    </div>
-                    <div class="form-group">
-                        <label for="worker_first_name">שם פרטי (לועזי)</label>
-                        <input type="text" id="worker_first_name" name="worker_first_name">
-                    </div>
-                    <div class="form-group">
-                        <label for="worker_country">ארץ מוצא</label>
-                        <input type="text" id="worker_country" name="worker_country">
-                    </div>
-                    <div class="form-group">
-                        <label for="worker_mobile">טלפון נייד</label>
-                        <input type="tel" id="worker_mobile" name="worker_mobile">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="entry_date">תאריך תחילת ההעסקה</label>
-                        <input type="text" id="entry_date" name="entry_date" placeholder="DD/MM/YYYY">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <label>פרטי לשכת הייבוא</label>
-                    <div class="checkbox-group">
-                        <label><input type="checkbox" name="from_israel"> מישראל</label>
-                        <label><input type="checkbox" name="from_abroad"> מחו"ל</label>
-                        <label><input type="checkbox" name="from_other_employer"> ממעסיק אחר</label>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Page 2: Assessment -->
-            <section class="form-section">
-                <h2>הערכת מצב הקשיש</h2>
+                <h2>הערכת מצב המעסיק (הקשיש)</h2>
 
                 <div class="form-group">
-                    <label for="appearance_description">תיאור הופעה חיצונית</label>
-                    <textarea id="appearance_description" name="appearance_description" rows="3" placeholder="רגוע / חסר שקט / ניקיון / לבוש / ריח / הזנחה"></textarea>
+                    <label for="appearance_description">תאור הופעה חיצונית</label>
+                    <textarea id="appearance_description" name="appearance_description" rows="2" placeholder="רגוע / חסר שקט / ניקיון / לבוש בהתאם לעונה / ריחות / הזנחה"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="nutritional_status">תיאור מצב תזונתי</label>
-                    <textarea id="nutritional_status" name="nutritional_status" rows="3" placeholder="נראה בהתאם לגילו / רזה / שמן / אחר"></textarea>
+                    <label for="nutritional_status">תאור מצב תזונתי</label>
+                    <textarea id="nutritional_status" name="nutritional_status" rows="2" placeholder="נראה בהתאם לגילו / רזה / שמן / וכו"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="external_signs">תיאור סממנים חיצוניים חריגים</label>
-                    <textarea id="external_signs" name="external_signs" rows="3" placeholder="פיזיולוגי: סימנים כחולים, שטפי דם / מצב נפשי: מצב רוח ירוד, מתח, חרדה וכו"></textarea>
+                    <label for="external_signs">תאור סממנים חיצוניים חריגים</label>
+                    <textarea id="external_signs" name="external_signs" rows="2" placeholder="פיזיולוגי: סימנים כחולים, שטפי דם / מצב נפשי: מצב רוח ירוד, מתח, חרדה"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="functional_status">תיאור מצב תפקודי</label>
-                    <textarea id="functional_status" name="functional_status" rows="3" placeholder="עצמאי / זקוק לעזרה במעברים / עזור בלזול לפרקים / תלוי בלזול / סיעודי / מרותק למיטה / ניידות, שליטה על סוגרים וכו"></textarea>
+                    <label for="functional_status">תאור מצב תפקודי</label>
+                    <textarea id="functional_status" name="functional_status" rows="2" placeholder="עצמאי / זקוק לעזרה במעברים / נעזר בזולת לפרקים / תלוי בזולת / סיעודי / מרותק למיטה"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="health_status">תיאור מצבו הבריאותי</label>
-                    <textarea id="health_status" name="health_status" rows="3" placeholder="תקין / מחלות כרוניות / אירועים משמעותיים: מחלות, נפילות וכו"></textarea>
+                    <label for="health_status">תאור מצבו הבריאותי</label>
+                    <textarea id="health_status" name="health_status" rows="2" placeholder="תקין / מחלות כרוניות / אירועים משמעותיים: מחלות, נפילות"></textarea>
                 </div>
 
-                <div class="form-row">
+                <div class="form-row hospitalization-row">
                     <div class="form-group">
                         <label>האם אושפז לאחרונה</label>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox" name="was_hospitalized"> כן</label>
+                        <div class="checkbox-group inline">
+                            <label><input type="checkbox" name="was_hospitalized_yes"> כן</label>
+                            <label><input type="checkbox" name="was_hospitalized_no"> לא</label>
                         </div>
                     </div>
                     <div class="form-group">
@@ -232,32 +79,28 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="cognitive_description">תיאור קוגניטיבי</label>
-                    <textarea id="cognitive_description" name="cognitive_description" rows="3" placeholder="תקשורת: לפי הבנה והבעה / קוגניטיבי בהתנהגות: התנהגות חברתית, פתרון בעיות, זיכרון"></textarea>
+                    <label for="cognitive_description">תאור קוגניטיבי</label>
+                    <textarea id="cognitive_description" name="cognitive_description" rows="2" placeholder="תקשורת: לפי הבנה / הבעה / קוגניציה בהתנהגות: התנהגות חברתית, פתרון בעיות, זיכרון"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="home_maintenance">התרשמות מתחזוקת הבית</label>
-                    <textarea id="home_maintenance" name="home_maintenance" rows="3" placeholder="אוורור, חימום, שירותים, מטבח וכו"></textarea>
+                    <textarea id="home_maintenance" name="home_maintenance" rows="2" placeholder="ניקיון / אוורור / חימום / שירותים / מטבח"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="food_supply">קניית מזון עבור הקשיש ועבור ע"ז והספקת ארוחות</label>
-                    <textarea id="food_supply" name="food_supply" rows="3" placeholder="מי קונה / מתי / איך / התחשבות בצרכי ע"ז וכו"></textarea>
+                    <label for="food_supply">קניות מזון עבור הקשיש ועבור העו"ז ואספקת ארוחות</label>
+                    <textarea id="food_supply" name="food_supply" rows="2" placeholder="מי קונה / מתי / איך / התחשבות בצרכי העו"ז"></textarea>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="client_satisfaction">שביעות רצון הקשיש מהמטפל</label>
-                        <input type="text" id="client_satisfaction" name="client_satisfaction" placeholder="גבוהה / מרוצה / אינו מרוצה / מבקש להחליף">
-                    </div>
+                <div class="form-group">
+                    <label for="client_satisfaction">שביעות רצון הקשיש מהמטפל</label>
+                    <input type="text" id="client_satisfaction" name="client_satisfaction" placeholder="גבוהה / מרוצה / אינו מרוצה / מבקש להחליף">
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="family_satisfaction">שביעות רצון המשפחה מהמטפל</label>
-                        <input type="text" id="family_satisfaction" name="family_satisfaction" placeholder="גבוהה / מרוצה / אינו מרוצה / מבקש להחליף">
-                    </div>
+                <div class="form-group">
+                    <label for="family_satisfaction">שביעות רצון המשפחה מהמטפל</label>
+                    <input type="text" id="family_satisfaction" name="family_satisfaction" placeholder="גבוהה / מרוצה / אינו מרוצה / מבקש להחליף">
                 </div>
 
                 <div class="form-group">
@@ -276,81 +119,68 @@
                 <h2>דיווח על העובד הזר</h2>
 
                 <div class="form-group">
-                    <label for="worker_appearance">תיאור הופעה חיצונית</label>
-                    <textarea id="worker_appearance" name="worker_appearance" rows="3" placeholder="רגוע / חסר שקט / ניקיון / לבוש בהתאם לעונה / ריח / הזנחה"></textarea>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>האם ע"ז קיבל הדרכה לפני תחילת העבודה</label>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox" name="worker_received_training"> כן</label>
-                        </div>
-                    </div>
+                    <label for="worker_appearance">תאור הופעה חיצונית</label>
+                    <textarea id="worker_appearance" name="worker_appearance" rows="2" placeholder="רגוע / חסר שקט / ניקיון / לבוש בהתאם לעונה / ריחות / הזנחה"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="worker_duties">מה הם תפקידי ע"ז</label>
-                    <textarea id="worker_duties" name="worker_duties" rows="4" placeholder="ניקיון / כביסה / רחצה / החתלה / הלבשה / בישול / ליווי לטיפולים / השגחה בלילה / מתן תרופות / קניות וסידורים וכו"></textarea>
+                    <label for="worker_training">האם העו"ז קיבל הדרכה טרם תחילת העבודה</label>
+                    <textarea id="worker_training" name="worker_training" rows="2" placeholder="אודות צרכים מיוחדים של המעסיק, מחלות, מאכלים מיוחדים, הפעלת מוצרי חשמל"></textarea>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="worker_satisfaction">האם ע"ז מרוצה / פרט</label>
-                        <input type="text" id="worker_satisfaction" name="worker_satisfaction">
-                    </div>
+                <div class="form-group">
+                    <label for="worker_duties">מה הם תפקידי העו"ז</label>
+                    <textarea id="worker_duties" name="worker_duties" rows="3" placeholder="ניקיון / כביסה / רחצה / בישול / החתלה / הלבשה / ליווי לטיפולים / השגחה בלילה / מתן תרופות / קניות וסידורים"></textarea>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="work_difficulties">האם נצפו קשיים בעבודה עם הקשיש</label>
-                        <input type="text" id="work_difficulties" name="work_difficulties" placeholder="כן / לא / פרט">
-                    </div>
+                <div class="form-group">
+                    <label for="worker_satisfaction">האם העו"ז מרוצה</label>
+                    <input type="text" id="worker_satisfaction" name="worker_satisfaction" placeholder="כן / לא / פרט">
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="duties_match_needs">האם יש התאמה בין עבודות ע"ז לשביעות רצון העובד</label>
-                        <input type="text" id="duties_match_needs" name="duties_match_needs">
-                    </div>
+                <div class="form-group">
+                    <label for="work_difficulties">האם נצפו קשיים בעבודה עם הקשיש</label>
+                    <textarea id="work_difficulties" name="work_difficulties" rows="2" placeholder="כן / לא / פרט - למשל: האם מטפל בבני משפחה נוספים / עומס עבודה"></textarea>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>האם לע"ז יש חברים או מכרים באזור</label>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox" name="worker_has_friends"> כן</label>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="duties_match_satisfaction">האם יש הלימה בין עבודות העו"ז לשביעות רצונו של העובד</label>
+                    <input type="text" id="duties_match_satisfaction" name="duties_match_satisfaction">
                 </div>
 
-                <h3>תנאי ההעסקה של ע"ז</h3>
-                <p class="help-text">(על הע"ס לבדוק את תנאי העסקת העובד הזר)</p>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>ביטוח רפואי תקף</label>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox" name="medical_insurance_valid"> כן</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="insurance_from">מ-</label>
-                        <input type="text" id="insurance_from" name="insurance_from" placeholder="DD/MM/YYYY">
-                    </div>
-                    <div class="form-group">
-                        <label for="insurance_to">עד</label>
-                        <input type="text" id="insurance_to" name="insurance_to" placeholder="DD/MM/YYYY">
-                    </div>
+                <div class="form-group">
+                    <label for="worker_has_friends">האם לעו"ז יש חברים או מכרים באזור</label>
+                    <input type="text" id="worker_has_friends" name="worker_has_friends">
                 </div>
+
+                <h3>תנאי העסקת העו"ז</h3>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label>החוזה נמצא בידי</label>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox" name="contract_with_employer"> המעסיק</label>
-                            <label><input type="checkbox" name="contract_with_other"> העובד אחר</label>
+                        <div class="checkbox-group inline">
+                            <label><input type="checkbox" name="contract_employer"> המעסיק</label>
+                            <label><input type="checkbox" name="contract_worker"> העובד</label>
+                            <label><input type="checkbox" name="contract_other"> אחר</label>
                         </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>החוזה תורגם לשפת העו"ז</label>
+                        <div class="checkbox-group inline">
+                            <label><input type="checkbox" name="contract_translated_yes"> כן</label>
+                            <label><input type="checkbox" name="contract_translated_no"> לא</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="insurance_from">ביטוח רפואי תקף מ-</label>
+                        <input type="text" id="insurance_from" name="insurance_from" placeholder="תאריך">
+                    </div>
+                    <div class="form-group">
+                        <label for="insurance_to">עד</label>
+                        <input type="text" id="insurance_to" name="insurance_to" placeholder="תאריך">
                     </div>
                 </div>
 
@@ -360,40 +190,36 @@
                         <input type="text" id="insurance_company" name="insurance_company">
                     </div>
                     <div class="form-group">
-                        <label for="last_payment_date">תאריך בגין ביטוח לאומי לעובד</label>
-                        <input type="text" id="last_payment_date" name="last_payment_date" placeholder="DD/MM/YYYY">
+                        <label for="last_insurance_payment">תשלום אחרון בגין ביטוח לאומי</label>
+                        <input type="text" id="last_insurance_payment" name="last_insurance_payment" placeholder="תאריך">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="monthly_salary">שכר עבודה קבוע</label>
-                        <input type="text" id="monthly_salary" name="monthly_salary" placeholder="סכום">
-                    </div>
-                    <div class="form-group">
-                        <label for="payment_date">מועד התשלום</label>
-                        <input type="text" id="payment_date" name="payment_date" placeholder="תאריך בחודש">
+                        <input type="text" id="monthly_salary" name="monthly_salary">
                     </div>
                     <div class="form-group">
                         <label for="total_payment">סה"כ לתשלום</label>
                         <input type="text" id="total_payment" name="total_payment">
+                    </div>
+                    <div class="form-group">
+                        <label for="payment_date">מועד התשלום</label>
+                        <input type="text" id="payment_date" name="payment_date">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label>אופן התשלום</label>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox" name="payment_method_cash"> מזומן</label>
-                            <label><input type="checkbox" name="payment_method_bank"> הפקדה לחשבון בנק</label>
-                            <label><input type="checkbox" name="payment_method_other"> אחר</label>
+                        <div class="checkbox-group inline">
+                            <label><input type="checkbox" name="payment_check"> שיק</label>
+                            <label><input type="checkbox" name="payment_bank"> הפקדה לחשבון</label>
+                            <label><input type="checkbox" name="payment_cash"> מזומן</label>
+                            <label><input type="checkbox" name="payment_other"> אחר</label>
                         </div>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="accommodation_description">מגורים הולמים לעובד הזר</label>
-                    <textarea id="accommodation_description" name="accommodation_description" rows="3" placeholder="חדר שינה, כלי מיטה, ארון בגדים, חימום, מזגן, אינטרנט, טלוויזיה וכו"></textarea>
                 </div>
 
                 <div class="form-row">
@@ -401,11 +227,15 @@
                         <label for="weekly_day_off">יום החופש השבועי</label>
                         <input type="text" id="weekly_day_off" name="weekly_day_off">
                     </div>
+                    <div class="form-group wide">
+                        <label for="accommodation">מגורים הולמים לעובד הזר</label>
+                        <input type="text" id="accommodation" name="accommodation" placeholder="חדר שינה / כלי מיטה / ארון בגדים / חימום / אינטרנט / טלוויזיה">
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="additional_notes">הערות</label>
-                    <textarea id="additional_notes" name="additional_notes" rows="4"></textarea>
+                    <label for="notes">הערות</label>
+                    <textarea id="notes" name="notes" rows="3"></textarea>
                 </div>
             </section>
 
@@ -414,54 +244,56 @@
                 <h2>תכנית טיפול</h2>
 
                 <div class="form-group">
-                    <label for="treatment_plan_description">מהות הטיפול (לאור הנתונים אשר נצפו במהלך המפגש)</label>
-                    <textarea id="treatment_plan_description" name="treatment_plan_description" rows="5"></textarea>
+                    <label for="treatment_essence">מהות הטיפול</label>
+                    <textarea id="treatment_essence" name="treatment_essence" rows="3" placeholder="על העובד הסוציאלי לשקול תכנית טיפולית תואמת לאור הנתונים אשר נצפו במהלך המפגש"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label>סוגי טיפול</label>
+                    <label>סוג הטיפול</label>
                     <div class="checkbox-group">
-                        <label><input type="checkbox" name="treatment_types.elderly_issues"> טיפול בבעיות של הקשיש</label>
-                        <label><input type="checkbox" name="treatment_types.caregiver_issues"> טיפול בבעיות של העובד הזר</label>
-                        <label><input type="checkbox" name="treatment_types.liaison"> גישור</label>
-                        <label><input type="checkbox" name="treatment_types.follow_up"> מעקב</label>
-                        <label><input type="checkbox" name="treatment_types.referral"> כיוון והפניה לשירותים</label>
-                        <label><input type="checkbox" name="treatment_types.family_report"> דיווח לבן משפחה</label>
+                        <label><input type="checkbox" name="treatment_employer_issues"> טיפול בבעיות של המעסיק</label>
+                        <label><input type="checkbox" name="treatment_worker_issues"> טיפול בבעיות של העובד הזר</label>
+                        <label><input type="checkbox" name="treatment_mediation"> גישור</label>
+                        <label><input type="checkbox" name="treatment_followup"> מעקב</label>
+                        <label><input type="checkbox" name="treatment_referral"> תיווך והפניה לשירותים</label>
+                        <label><input type="checkbox" name="treatment_family_report"> דיווח לבן משפחה</label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="summary_employer">סיכום והתרשמות הע"ס או בעל תפקיד כריב מהביקור בנוגע למעסיק</label>
-                    <textarea id="summary_employer" name="summary_employer" rows="4"></textarea>
+                    <label for="summary_employer">סיכום והתרשמות - בנוגע למעסיק</label>
+                    <textarea id="summary_employer" name="summary_employer" rows="3"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="summary_caregiver">בנוגע למטפל</label>
-                    <textarea id="summary_caregiver" name="summary_caregiver" rows="4"></textarea>
+                    <label for="summary_caregiver">סיכום והתרשמות - בנוגע למטפל</label>
+                    <textarea id="summary_caregiver" name="summary_caregiver" rows="3"></textarea>
                 </div>
 
-                <h3>נוכחים בביקור</h3>
-                <div class="checkbox-group">
-                    <label><input type="checkbox" name="attendees_employer"> מעסיק</label>
-                    <label><input type="checkbox" name="attendees_family"> בן משפחה</label>
-                    <label><input type="checkbox" name="attendees_worker"> עובד זר</label>
-                    <label><input type="checkbox" name="attendees_office_rep"> נציג הלשכה הפרטית</label>
-                    <label><input type="checkbox" name="attendees_other"> אחר</label>
+                <div class="form-group">
+                    <label>נוכחים בביקור</label>
+                    <div class="checkbox-group inline">
+                        <label><input type="checkbox" name="attendee_employer"> מעסיק</label>
+                        <label><input type="checkbox" name="attendee_family"> בן משפחה</label>
+                        <label><input type="checkbox" name="attendee_worker"> עובד זר</label>
+                        <label><input type="checkbox" name="attendee_office_rep"> נציג הלשכה הפרטית</label>
+                        <label><input type="checkbox" name="attendee_other"> אחר</label>
+                    </div>
                 </div>
 
                 <h3>חתימות</h3>
+
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="social_worker_signature_name">שם העובד הסוציאלי או בעל תפקיד כריב</label>
-                        <input type="text" id="social_worker_signature_name" name="social_worker_signature_name">
+                        <label for="signer_id">ת.ז. החותם</label>
+                        <input type="text" id="signer_id" name="signer_id" maxlength="9">
                     </div>
+                </div>
+
+                <div class="form-row">
                     <div class="form-group">
-                        <label for="social_worker_id">ת.ז.</label>
-                        <input type="text" id="social_worker_id" name="social_worker_id" maxlength="9">
-                    </div>
-                    <div class="form-group">
-                        <label for="social_worker_signature_date">תאריך</label>
-                        <input type="text" id="social_worker_signature_date" name="social_worker_signature_date" placeholder="DD/MM/YYYY">
+                        <label for="social_worker_name_signature">שם העובד הסוציאלי / בעל תפקיד</label>
+                        <input type="text" id="social_worker_name_signature" name="social_worker_name_signature">
                     </div>
                 </div>
 
@@ -478,8 +310,8 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="supervisor_confirmation_date">תאריך אישור מפקח</label>
-                        <input type="text" id="supervisor_confirmation_date" name="supervisor_confirmation_date" placeholder="DD/MM/YYYY">
+                        <label for="signature_date">תאריך</label>
+                        <input type="text" id="signature_date" name="signature_date" placeholder="DD/MM/YYYY">
                     </div>
                 </div>
             </section>

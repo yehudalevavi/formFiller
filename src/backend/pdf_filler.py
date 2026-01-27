@@ -9,7 +9,23 @@ from reportlab.pdfbase.ttfonts import TTFont
 from pypdf import PdfReader, PdfWriter
 import arabic_reshaper
 from bidi.algorithm import get_display
+import os
 from .field_mapping import FORM_FIELDS, HEBREW_FONT_SIZE, CHECKBOX_SIZE
+
+# Register Hebrew font
+HEBREW_FONT_PATH = "/Library/Fonts/Arial Unicode.ttf"
+HEBREW_FONT_NAME = "ArialUnicode"
+
+try:
+    if os.path.exists(HEBREW_FONT_PATH):
+        pdfmetrics.registerFont(TTFont(HEBREW_FONT_NAME, HEBREW_FONT_PATH))
+    else:
+        # Fallback to system font if Arial Unicode not available
+        HEBREW_FONT_NAME = "Helvetica"
+        print(f"Warning: Hebrew font not found at {HEBREW_FONT_PATH}, using Helvetica")
+except Exception as e:
+    print(f"Error registering Hebrew font: {e}")
+    HEBREW_FONT_NAME = "Helvetica"
 
 
 class PDFFiller:
@@ -82,7 +98,7 @@ class PDFFiller:
         # Handle checkboxes
         if field_config.get("checkbox", False):
             if field_value in [True, "true", "yes", "כן", "1", 1]:
-                can.setFont("Helvetica", CHECKBOX_SIZE)
+                can.setFont(HEBREW_FONT_NAME, CHECKBOX_SIZE)
                 can.drawString(x, y, "X")
             return
 
@@ -93,8 +109,8 @@ class PDFFiller:
         # Convert value to string and prepare for Hebrew
         text = self.prepare_hebrew_text(str(field_value))
 
-        # Set font
-        can.setFont("Helvetica", HEBREW_FONT_SIZE)
+        # Set font - use Hebrew-compatible font
+        can.setFont(HEBREW_FONT_NAME, HEBREW_FONT_SIZE)
 
         # Handle multiline text
         if field_config.get("multiline", False):

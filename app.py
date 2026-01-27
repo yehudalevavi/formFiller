@@ -96,6 +96,7 @@ if __name__ == '__main__':
     if not os.path.exists(app.config['TEMPLATE_PDF']):
         print(f"Warning: Template PDF not found at {app.config['TEMPLATE_PDF']}")
 
+    port = 5001
     print("Starting PDF Form Filler application...")
-    print("Navigate to http://localhost:5000")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    print(f"Navigate to http://localhost:{port}")
+    app.run(debug=True, host='0.0.0.0', port=port)
