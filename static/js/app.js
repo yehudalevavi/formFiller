@@ -5,32 +5,159 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadingDiv = document.getElementById('loading');
     const errorDiv = document.getElementById('error-message');
 
+    // PDF Upload elements
+    const pdfUpload = document.getElementById('pdfUpload');
+    const fileNameSpan = document.getElementById('fileName');
+    const browseBtn = document.getElementById('browseBtn');
+    const uploadStatus = document.getElementById('uploadStatus');
+    const uploadError = document.getElementById('uploadError');
+
+    // Track uploaded file and validation state
+    let uploadedPdfFile = null;
+    let pdfValidated = false;
+
+    // File upload handling
+    if (pdfUpload) {
+        pdfUpload.addEventListener('change', async function(e) {
+            const file = e.target.files[0];
+
+            if (!file) {
+                resetUploadState();
+                return;
+            }
+
+            // Update file name display
+            fileNameSpan.textContent = file.name;
+            fileNameSpan.classList.add('has-file');
+            uploadedPdfFile = file;
+            pdfValidated = false;
+
+            // Validate the uploaded PDF
+            await validateUploadedPdf(file);
+        });
+
+        // Allow clicking on browse button to trigger file input
+        if (browseBtn) {
+            browseBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                pdfUpload.click();
+            });
+        }
+    }
+
+    // Validate uploaded PDF
+    async function validateUploadedPdf(file) {
+        showUploadStatus('validating', 'מאמת את קובץ ה-PDF...');
+        hideUploadError();
+
+        const formData = new FormData();
+        formData.append('pdf_file', file);
+
+        try {
+            const response = await fetch('/api/validate-pdf', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.valid) {
+                pdfValidated = true;
+                let message = 'קובץ PDF תקין';
+                if (result.warnings && result.warnings.length > 0) {
+                    message += ' (עם אזהרות)';
+                }
+                showUploadStatus('valid', message);
+
+                if (result.warnings && result.warnings.length > 0) {
+                    console.log('PDF validation warnings:', result.warnings);
+                }
+            } else {
+                pdfValidated = false;
+                showUploadStatus('invalid', 'קובץ PDF לא תקין');
+                showUploadError(result.errors || result.details || ['שגיאה לא ידועה']);
+            }
+        } catch (error) {
+            console.error('Validation error:', error);
+            pdfValidated = false;
+            showUploadStatus('invalid', 'שגיאה באימות הקובץ');
+            showUploadError([error.message || 'שגיאה בבדיקת הקובץ']);
+        }
+    }
+
+    function resetUploadState() {
+        uploadedPdfFile = null;
+        pdfValidated = false;
+        fileNameSpan.textContent = 'לא נבחר קובץ';
+        fileNameSpan.classList.remove('has-file');
+        hideUploadStatus();
+        hideUploadError();
+    }
+
+    function showUploadStatus(status, message) {
+        uploadStatus.className = 'upload-status ' + status;
+        uploadStatus.querySelector('.status-message').textContent = message;
+        uploadStatus.style.display = 'flex';
+    }
+
+    function hideUploadStatus() {
+        uploadStatus.style.display = 'none';
+    }
+
+    function showUploadError(errors) {
+        let html = '<strong>שגיאות באימות:</strong><ul>';
+        errors.forEach(err => {
+            html += `<li>${err}</li>`;
+        });
+        html += '</ul>';
+        uploadError.innerHTML = html;
+        uploadError.style.display = 'block';
+    }
+
+    function hideUploadError() {
+        uploadError.style.display = 'none';
+    }
+
     // Form submission handler
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
         // Collect form data
-        const formData = collectFormData();
+        const formDataObj = collectFormData();
 
-        // Validate required fields (optional - add your validation logic)
-        // if (!validateForm(formData)) {
-        //     showError('Please fill in all required fields');
-        //     return;
-        // }
+        // Check if PDF is uploaded but not validated
+        if (uploadedPdfFile && !pdfValidated) {
+            showError('יש לאמת את קובץ ה-PDF לפני השליחה');
+            return;
+        }
 
         // Show loading spinner
         showLoading();
         hideError();
 
         try {
-            // Send data to server
-            const response = await fetch('/api/fill', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            });
+            let response;
+
+            if (uploadedPdfFile && pdfValidated) {
+                // Use uploaded PDF - send as multipart form data
+                const formData = new FormData();
+                formData.append('pdf_file', uploadedPdfFile);
+                formData.append('form_data', JSON.stringify(formDataObj));
+
+                response = await fetch('/api/fill-uploaded', {
+                    method: 'POST',
+                    body: formData
+                });
+            } else {
+                // Use template PDF - send as JSON
+                response = await fetch('/api/fill', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formDataObj)
+                });
+            }
 
             if (!response.ok) {
                 const error = await response.json();
@@ -182,6 +309,12 @@ document.addEventListener('DOMContentLoaded', function() {
             inputs.forEach(input => {
                 localStorage.removeItem(`form_${input.name}`);
             });
+
+            // Reset upload state
+            resetUploadState();
+            if (pdfUpload) {
+                pdfUpload.value = '';
+            }
         }
     });
 

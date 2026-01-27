@@ -13,6 +13,30 @@
             <p class="subtitle">מילוי פרטי הביקור - פרטי המעסיק והעובד הזר כבר מולאו בטופס</p>
         </header>
 
+        <!-- PDF Upload Section -->
+        <section class="form-section upload-section">
+            <h2>העלאת קובץ PDF</h2>
+            <p class="upload-instructions">
+                העלה קובץ PDF עם פרטי המעסיק והעובד הזר מולאים מראש.
+                הקובץ חייב להיות בפורמט זהה לטופס הביקור הרגיל (4 עמודים).
+            </p>
+            <div class="form-group">
+                <label for="pdfUpload">בחר קובץ PDF</label>
+                <div class="file-upload-wrapper">
+                    <input type="file" id="pdfUpload" accept=".pdf" class="file-input">
+                    <div class="file-upload-display">
+                        <span class="file-name" id="fileName">לא נבחר קובץ</span>
+                        <button type="button" class="btn-browse" id="browseBtn">בחר קובץ</button>
+                    </div>
+                </div>
+            </div>
+            <div id="uploadStatus" class="upload-status" style="display: none;">
+                <div class="status-icon"></div>
+                <span class="status-message"></span>
+            </div>
+            <div id="uploadError" class="upload-error" style="display: none;"></div>
+        </section>
+
         <form id="pdfForm">
             <!-- Page 1: Visit Date Only (other fields pre-filled) -->
             <section class="form-section">

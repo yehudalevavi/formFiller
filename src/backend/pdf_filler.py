@@ -190,6 +190,21 @@ class PDFFiller:
 
 
 def fill_pdf_form(template_path, form_data, output_path=None):
-    """Convenience function to fill PDF form"""
+    """Convenience function to fill PDF form from a template file path"""
     filler = PDFFiller(template_path)
     return filler.fill_form(form_data, output_path)
+
+
+def fill_pdf_from_bytes(pdf_bytes, form_data, output_path=None):
+    """Fill a PDF form from bytes (for uploaded files)"""
+    filler = PDFFillerFromBytes(pdf_bytes)
+    return filler.fill_form(form_data, output_path)
+
+
+class PDFFillerFromBytes(PDFFiller):
+    """PDF Filler that accepts PDF bytes instead of a file path"""
+
+    def __init__(self, pdf_bytes):
+        """Initialize PDF filler with PDF bytes"""
+        self.pdf_bytes = pdf_bytes
+        self.reader = PdfReader(BytesIO(pdf_bytes))

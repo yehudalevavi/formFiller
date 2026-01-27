@@ -259,6 +259,166 @@ header .subtitle {
     text-align: center;
 }
 
+/* PDF Upload Section */
+.upload-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 2px solid #667eea;
+}
+
+.upload-instructions {
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.file-upload-wrapper {
+    position: relative;
+}
+
+.file-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.file-upload-display {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border: 2px dashed #667eea;
+    border-radius: 8px;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.file-upload-wrapper:hover .file-upload-display {
+    border-color: #764ba2;
+    background: #f8f9ff;
+}
+
+.file-name {
+    flex: 1;
+    color: #666;
+    font-size: 1em;
+}
+
+.file-name.has-file {
+    color: #333;
+    font-weight: 600;
+}
+
+.btn-browse {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.upload-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    margin-top: 15px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.upload-status.validating {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.upload-status.valid {
+    background: #d4edda;
+    color: #155724;
+}
+
+.upload-status.invalid {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.upload-status .status-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.upload-status.validating .status-icon {
+    border: 3px solid #ffc107;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+.upload-status.valid .status-icon {
+    background: #28a745;
+    position: relative;
+}
+
+.upload-status.valid .status-icon::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.upload-status.invalid .status-icon {
+    background: #dc3545;
+    position: relative;
+}
+
+.upload-status.invalid .status-icon::before,
+.upload-status.invalid .status-icon::after {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 4px;
+    width: 2px;
+    height: 12px;
+    background: white;
+}
+
+.upload-status.invalid .status-icon::before {
+    transform: rotate(45deg);
+}
+
+.upload-status.invalid .status-icon::after {
+    transform: rotate(-45deg);
+}
+
+.upload-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 6px;
+    border: 1px solid #f5c6cb;
+}
+
+.upload-error ul {
+    margin: 10px 0 0 20px;
+    padding: 0;
+}
+
+.upload-error li {
+    margin-bottom: 5px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
