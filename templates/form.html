@@ -15,7 +15,7 @@
     <div class="container">
         <header>
             <h1>טופס ביקור רגיל</h1>
-            <p class="subtitle">מילוי פרטי הביקור - פרטי המעסיק והעובד הזר כבר מולאו בטופס</p>
+            <p class="subtitle">מילוי טופס ביקור בית - לאחר השמה/שוטף</p>
         </header>
 
         <!-- PDF Upload Section -->
@@ -43,7 +43,7 @@
         </section>
 
         <form id="pdfForm">
-            <!-- Page 1: Visit Date Only (other fields pre-filled) -->
+            <!-- Page 1: Personal Details and Visit Info -->
             <section class="form-section">
                 <h2>תאריך הביקור</h2>
                 <div class="form-row">
@@ -56,6 +56,170 @@
                             <span>/</span>
                             <input type="text" name="visit_date_year" placeholder="שנה" maxlength="4" class="small-input">
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Page 1: Employer Personal Details -->
+            <section class="form-section">
+                <h2>פרטים אישיים של המעסיק</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="employer_last_name">שם משפחה</label>
+                        <input type="text" id="employer_last_name" name="employer_last_name" maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="employer_first_name">שם פרטי</label>
+                        <input type="text" id="employer_first_name" name="employer_first_name" maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="employer_id">מספר זהות</label>
+                        <input type="text" id="employer_id" name="employer_id" maxlength="9">
+                    </div>
+                </div>
+
+                <h3>כתובת המעסיק</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="employer_street">רחוב</label>
+                        <input type="text" id="employer_street" name="employer_street" maxlength="30">
+                    </div>
+                    <div class="form-group">
+                        <label for="employer_house_number">מספר בית</label>
+                        <input type="text" id="employer_house_number" name="employer_house_number" maxlength="5" class="small-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="employer_entrance">כניסה</label>
+                        <input type="text" id="employer_entrance" name="employer_entrance" maxlength="3" class="small-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="employer_apartment">דירה</label>
+                        <input type="text" id="employer_apartment" name="employer_apartment" maxlength="5" class="small-input">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="employer_city">ישוב</label>
+                        <input type="text" id="employer_city" name="employer_city" maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="employer_zipcode">מיקוד</label>
+                        <input type="text" id="employer_zipcode" name="employer_zipcode" maxlength="7" class="small-input">
+                    </div>
+                </div>
+
+                <h3>פרטי התקשרות</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="employer_landline">טלפון קווי</label>
+                        <input type="text" id="employer_landline" name="employer_landline" maxlength="12">
+                    </div>
+                    <div class="form-group">
+                        <label for="employer_mobile">טלפון נייד</label>
+                        <input type="text" id="employer_mobile" name="employer_mobile" maxlength="12">
+                    </div>
+                    <div class="form-group wide">
+                        <label for="employer_email">דואר אלקטרוני</label>
+                        <input type="email" id="employer_email" name="employer_email" maxlength="40">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Page 1: Worker Details -->
+            <section class="form-section">
+                <h2>פרטי העובד הזר</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="worker_passport">מספר דרכון</label>
+                        <input type="text" id="worker_passport" name="worker_passport" maxlength="15">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="worker_last_name">שם משפחה</label>
+                        <input type="text" id="worker_last_name" name="worker_last_name" maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="worker_first_name">שם פרטי</label>
+                        <input type="text" id="worker_first_name" name="worker_first_name" maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="worker_origin_country">ארץ מוצא</label>
+                        <input type="text" id="worker_origin_country" name="worker_origin_country" maxlength="15">
+                    </div>
+                    <div class="form-group">
+                        <label for="worker_mobile">טלפון נייד</label>
+                        <input type="text" id="worker_mobile" name="worker_mobile" maxlength="12">
+                    </div>
+                </div>
+
+                <h3>פרטי השמה</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="placement_start_date">תאריך תחילת השמה</label>
+                        <input type="text" id="placement_start_date" name="placement_start_date" placeholder="DD/MM/YYYY" maxlength="10">
+                    </div>
+                    <div class="form-group">
+                        <label>לשכה מייבאת</label>
+                        <div class="checkbox-group inline">
+                            <label><input type="checkbox" name="placement_israel"> ישראל</label>
+                            <label><input type="checkbox" name="placement_abroad"> חו"ל</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>כתובת מגורים</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="worker_street">רחוב</label>
+                        <input type="text" id="worker_street" name="worker_street" maxlength="25">
+                    </div>
+                    <div class="form-group">
+                        <label for="worker_house_number">מספר בית</label>
+                        <input type="text" id="worker_house_number" name="worker_house_number" maxlength="5" class="small-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="worker_entrance">כניסה</label>
+                        <input type="text" id="worker_entrance" name="worker_entrance" maxlength="3" class="small-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="worker_apartment">דירה</label>
+                        <input type="text" id="worker_apartment" name="worker_apartment" maxlength="5" class="small-input">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="worker_city">ישוב</label>
+                        <input type="text" id="worker_city" name="worker_city" maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="worker_day_off">יום חופשה</label>
+                        <input type="text" id="worker_day_off" name="worker_day_off" maxlength="15">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Page 1: Previous Visit Dates -->
+            <section class="form-section">
+                <h2>תאריכי ביקור אחרונים</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pre_placement_date">תאריך טרום השמה</label>
+                        <input type="text" id="pre_placement_date" name="pre_placement_date" placeholder="DD/MM/YYYY" maxlength="10">
+                    </div>
+                    <div class="form-group">
+                        <label for="pre_placement_social_worker">שם העו"ס</label>
+                        <input type="text" id="pre_placement_social_worker" name="pre_placement_social_worker" maxlength="20">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="post_placement_date">תאריך לאחר השמה</label>
+                        <input type="text" id="post_placement_date" name="post_placement_date" placeholder="DD/MM/YYYY" maxlength="10">
+                    </div>
+                    <div class="form-group">
+                        <label for="post_placement_social_worker">שם העו"ס</label>
+                        <input type="text" id="post_placement_social_worker" name="post_placement_social_worker" maxlength="20">
                     </div>
                 </div>
             </section>
