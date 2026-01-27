@@ -1,5 +1,5 @@
 """
-PDF Form Filler using coordinate-based overlay
+PDF Form Filler using coordinate-based overlay with RTL support
 """
 from io import BytesIO
 from reportlab.pdfgen import canvas
@@ -55,6 +55,13 @@ class PDFFiller:
         bidi_text = get_display(reshaped_text)
         return bidi_text
 
+    def _contains_hebrew(self, text):
+        """Check if text contains Hebrew characters"""
+        for char in text:
+            if '\u0590' <= char <= '\u05FF':  # Hebrew Unicode range
+                return True
+        return False
+
     def _flatten_form_data(self, form_data, parent_key=''):
         """Flatten nested dictionaries in form data"""
         items = {}
@@ -102,14 +109,15 @@ class PDFFiller:
         return packet
 
     def _draw_field(self, can, field_name, field_value, field_config):
-        """Draw a single field on the canvas"""
+        """Draw a single field on the canvas with proper alignment"""
         x = field_config["x"]
         y = field_config["y"]
+        align = field_config.get("align", "left")
 
         # Handle checkboxes
         if field_config.get("checkbox", False):
             if field_value in [True, "true", "yes", "כן", "1", 1]:
-                can.setFont(HEBREW_FONT_NAME, CHECKBOX_SIZE)
+                can.setFont("Helvetica", CHECKBOX_SIZE)
                 can.drawString(x, y, "X")
             return
 
@@ -117,41 +125,56 @@ class PDFFiller:
         if not field_value:
             return
 
-        # Convert value to string and prepare for Hebrew
-        text = self.prepare_hebrew_text(str(field_value))
+        value_str = str(field_value)
 
-        # Set font - use Hebrew-compatible font
-        can.setFont(HEBREW_FONT_NAME, HEBREW_FONT_SIZE)
+        # Choose font based on content - Hebrew font doesn't support ASCII well
+        if self._contains_hebrew(value_str):
+            # Process Hebrew text with bidi algorithm
+            text = self.prepare_hebrew_text(value_str)
+            font_name = HEBREW_FONT_NAME
+        else:
+            # ASCII text - use Helvetica which renders numbers correctly
+            text = value_str
+            font_name = "Helvetica"
+
+        can.setFont(font_name, HEBREW_FONT_SIZE)
 
         # Handle multiline text
         if field_config.get("multiline", False):
-            # Split text into lines (basic wrapping)
-            max_width = 450  # approximate max width in points
-            lines = self._wrap_text(text, max_width, can)
+            max_width = field_config.get("width", 450)
+            lines = self._wrap_text(text, max_width, can, font_name)
 
             # Draw each line
-            line_height = HEBREW_FONT_SIZE + 2
+            line_height = field_config.get("line_height", HEBREW_FONT_SIZE + 3)
             current_y = y
             for line in lines[:10]:  # Limit to 10 lines
-                can.drawString(x, current_y, line)
+                if align == "right":
+                    can.drawRightString(x, current_y, line)
+                else:
+                    can.drawString(x, current_y, line)
                 current_y -= line_height
         else:
             # Single line text
             max_length = field_config.get("max_length", 100)
             if len(text) > max_length:
                 text = text[:max_length]
-            can.drawString(x, y, text)
 
-    def _wrap_text(self, text, max_width, can):
-        """Simple text wrapping"""
+            # Draw with proper alignment
+            if align == "right":
+                can.drawRightString(x, y, text)
+            else:
+                can.drawString(x, y, text)
+
+    def _wrap_text(self, text, max_width, can, font_name):
+        """Simple text wrapping with proper font width calculation"""
         words = text.split()
         lines = []
         current_line = []
 
         for word in words:
             test_line = ' '.join(current_line + [word])
-            # Approximate width check
-            if can.stringWidth(test_line, "Helvetica", HEBREW_FONT_SIZE) <= max_width:
+            # Use actual font for width calculation
+            if can.stringWidth(test_line, font_name, HEBREW_FONT_SIZE) <= max_width:
                 current_line.append(word)
             else:
                 if current_line:
