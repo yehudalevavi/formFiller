@@ -12,9 +12,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const uploadStatus = document.getElementById('uploadStatus');
     const uploadError = document.getElementById('uploadError');
 
+    // Signature pad elements
+    const signatureCanvas = document.getElementById('signaturePad');
+    const clearSignatureBtn = document.getElementById('clearSignature');
+    let signatureCtx = null;
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
+
     // Track uploaded file and validation state
     let uploadedPdfFile = null;
     let pdfValidated = false;
+
+    // Initialize signature pad
+    if (signatureCanvas) {
+        initSignaturePad();
+    }
 
     // File upload handling
     if (pdfUpload) {
@@ -43,6 +56,150 @@ document.addEventListener('DOMContentLoaded', function() {
                 pdfUpload.click();
             });
         }
+    }
+
+    // Signature pad functionality
+    function initSignaturePad() {
+        signatureCtx = signatureCanvas.getContext('2d');
+
+        // Set up canvas size based on container
+        resizeSignatureCanvas();
+        window.addEventListener('resize', resizeSignatureCanvas);
+
+        // Set drawing styles
+        signatureCtx.strokeStyle = '#000';
+        signatureCtx.lineWidth = 2;
+        signatureCtx.lineCap = 'round';
+        signatureCtx.lineJoin = 'round';
+
+        // Mouse events
+        signatureCanvas.addEventListener('mousedown', startDrawing);
+        signatureCanvas.addEventListener('mousemove', draw);
+        signatureCanvas.addEventListener('mouseup', stopDrawing);
+        signatureCanvas.addEventListener('mouseout', stopDrawing);
+
+        // Touch events
+        signatureCanvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+        signatureCanvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+        signatureCanvas.addEventListener('touchend', stopDrawing);
+        signatureCanvas.addEventListener('touchcancel', stopDrawing);
+
+        // Clear button
+        if (clearSignatureBtn) {
+            clearSignatureBtn.addEventListener('click', clearSignature);
+        }
+    }
+
+    function resizeSignatureCanvas() {
+        const container = signatureCanvas.parentElement;
+        const rect = container.getBoundingClientRect();
+
+        // Store current signature if any
+        const imageData = signatureCtx ? signatureCanvas.toDataURL() : null;
+
+        // Set canvas size to match container width
+        const dpr = window.devicePixelRatio || 1;
+        signatureCanvas.width = rect.width * dpr;
+        signatureCanvas.height = 150 * dpr;
+
+        // Scale for high DPI displays
+        signatureCtx = signatureCanvas.getContext('2d');
+        signatureCtx.scale(dpr, dpr);
+
+        // Set drawing styles after resize
+        signatureCtx.strokeStyle = '#000';
+        signatureCtx.lineWidth = 2;
+        signatureCtx.lineCap = 'round';
+        signatureCtx.lineJoin = 'round';
+
+        // Restore signature if it existed
+        if (imageData && imageData !== 'data:,') {
+            const img = new Image();
+            img.onload = function() {
+                signatureCtx.drawImage(img, 0, 0, rect.width, 150);
+            };
+            img.src = imageData;
+        }
+    }
+
+    function getCanvasCoordinates(e) {
+        const rect = signatureCanvas.getBoundingClientRect();
+        let clientX, clientY;
+
+        if (e.touches && e.touches.length > 0) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+
+        return {
+            x: clientX - rect.left,
+            y: clientY - rect.top
+        };
+    }
+
+    function startDrawing(e) {
+        isDrawing = true;
+        const coords = getCanvasCoordinates(e);
+        lastX = coords.x;
+        lastY = coords.y;
+    }
+
+    function draw(e) {
+        if (!isDrawing) return;
+
+        const coords = getCanvasCoordinates(e);
+
+        signatureCtx.beginPath();
+        signatureCtx.moveTo(lastX, lastY);
+        signatureCtx.lineTo(coords.x, coords.y);
+        signatureCtx.stroke();
+
+        lastX = coords.x;
+        lastY = coords.y;
+    }
+
+    function stopDrawing() {
+        isDrawing = false;
+    }
+
+    function handleTouchStart(e) {
+        e.preventDefault();
+        startDrawing(e);
+    }
+
+    function handleTouchMove(e) {
+        e.preventDefault();
+        draw(e);
+    }
+
+    function clearSignature() {
+        const rect = signatureCanvas.getBoundingClientRect();
+        signatureCtx.clearRect(0, 0, rect.width, 150);
+    }
+
+    function isSignatureEmpty() {
+        const rect = signatureCanvas.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        const imageData = signatureCtx.getImageData(0, 0, rect.width * dpr, 150 * dpr);
+        const data = imageData.data;
+
+        // Check if all pixels are transparent
+        for (let i = 3; i < data.length; i += 4) {
+            if (data[i] !== 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function getSignatureDataUrl() {
+        if (isSignatureEmpty()) {
+            return null;
+        }
+        return signatureCanvas.toDataURL('image/png');
     }
 
     // Validate uploaded PDF
@@ -225,6 +382,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
+        // Add signature data if present
+        if (signatureCanvas && !isSignatureEmpty()) {
+            data.signature_image = getSignatureDataUrl();
+        }
+
         return data;
     }
 
@@ -314,6 +476,11 @@ document.addEventListener('DOMContentLoaded', function() {
             resetUploadState();
             if (pdfUpload) {
                 pdfUpload.value = '';
+            }
+
+            // Clear signature pad
+            if (signatureCanvas && signatureCtx) {
+                clearSignature();
             }
         }
     });

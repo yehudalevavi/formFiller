@@ -2,15 +2,26 @@
 PDF Form Filler using coordinate-based overlay with RTL support
 """
 from io import BytesIO
+import base64
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib.utils import ImageReader
 from pypdf import PdfReader, PdfWriter
 import arabic_reshaper
 from bidi.algorithm import get_display
 import os
 from .field_mapping import FORM_FIELDS, HEBREW_FONT_SIZE, CHECKBOX_SIZE
+
+# Signature field configuration
+SIGNATURE_CONFIG = {
+    "page": 3,  # Page 4 (0-indexed)
+    "x": 55,    # X position (left side, under "חתימה" label)
+    "y": 420,   # Y position (aligned with signature line)
+    "width": 150,  # Max width
+    "height": 40,  # Max height
+}
 
 # Register Hebrew font
 # Try embedded font first (for deployment), then fall back to system font (for local dev)
@@ -79,6 +90,9 @@ class PDFFiller:
         packet = BytesIO()
         can = canvas.Canvas(packet, pagesize=A4)
 
+        # Extract signature data before flattening (use get to not modify original)
+        signature_data = form_data.get('signature_image', None)
+
         # Flatten nested dictionaries first
         flat_data = self._flatten_form_data(form_data)
 
@@ -96,13 +110,24 @@ class PDFFiller:
 
             pages_data[page_num].append((field_name, field_value, field_config))
 
+        # Determine the max page we need to draw on
+        max_page = max(pages_data.keys()) if pages_data else 0
+        if signature_data:
+            max_page = max(max_page, SIGNATURE_CONFIG["page"])
+
         # Draw on each page
-        for page_num in sorted(pages_data.keys()):
+        for page_num in range(max_page + 1):
             if page_num > 0:
                 can.showPage()
 
-            for field_name, field_value, field_config in pages_data[page_num]:
-                self._draw_field(can, field_name, field_value, field_config)
+            # Draw form fields for this page
+            if page_num in pages_data:
+                for field_name, field_value, field_config in pages_data[page_num]:
+                    self._draw_field(can, field_name, field_value, field_config)
+
+            # Draw signature on its designated page
+            if signature_data and page_num == SIGNATURE_CONFIG["page"]:
+                self._draw_signature(can, signature_data)
 
         can.save()
         packet.seek(0)
@@ -185,6 +210,47 @@ class PDFFiller:
             lines.append(' '.join(current_line))
 
         return lines
+
+    def _draw_signature(self, can, signature_data):
+        """Draw signature image on the canvas"""
+        if not signature_data:
+            return
+
+        try:
+            # Remove data URL prefix if present
+            if signature_data.startswith('data:image'):
+                # Extract base64 data after the comma
+                signature_data = signature_data.split(',', 1)[1]
+
+            # Decode base64 to bytes
+            image_bytes = base64.b64decode(signature_data)
+            image_io = BytesIO(image_bytes)
+
+            # Create ImageReader from bytes
+            img = ImageReader(image_io)
+
+            # Get original image dimensions
+            img_width, img_height = img.getSize()
+
+            # Calculate scale to fit within max dimensions while preserving aspect ratio
+            max_width = SIGNATURE_CONFIG["width"]
+            max_height = SIGNATURE_CONFIG["height"]
+
+            scale_x = max_width / img_width if img_width > 0 else 1
+            scale_y = max_height / img_height if img_height > 0 else 1
+            scale = min(scale_x, scale_y, 1)  # Don't scale up, only down
+
+            final_width = img_width * scale
+            final_height = img_height * scale
+
+            # Draw the signature image
+            x = SIGNATURE_CONFIG["x"]
+            y = SIGNATURE_CONFIG["y"]
+
+            can.drawImage(img, x, y, width=final_width, height=final_height, mask='auto')
+
+        except Exception as e:
+            print(f"Error drawing signature: {e}")
 
     def fill_form(self, form_data, output_path=None):
         """Fill the form with provided data"""

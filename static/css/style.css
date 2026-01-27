@@ -655,6 +655,19 @@ header .subtitle {
         position: static;
     }
 
+    /* Signature pad - mobile */
+    .signature-group {
+        max-width: 100%;
+    }
+
+    .signature-pad {
+        height: 180px;
+    }
+
+    .signature-instructions {
+        font-size: 0.8em;
+    }
+
     /* Loading spinner adjustments */
     .loading p {
         font-size: 1.1em;
@@ -705,6 +718,69 @@ header .subtitle {
     body {
         padding-bottom: env(safe-area-inset-bottom);
     }
+}
+
+/* Signature Pad Styles */
+.signature-group {
+    width: 100%;
+    max-width: 500px;
+}
+
+.signature-pad-container {
+    position: relative;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.signature-pad {
+    display: block;
+    width: 100%;
+    height: 150px;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.signature-pad-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px;
+    background: #f8f9fa;
+    border-top: 1px solid #e0e0e0;
+}
+
+.btn-clear-signature {
+    padding: 8px 16px;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: #666;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-clear-signature:hover {
+    background: #f0f0f0;
+    border-color: #999;
+}
+
+.btn-clear-signature:active {
+    background: #e8e8e8;
+}
+
+.signature-instructions {
+    color: #888;
+    font-size: 0.85em;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.signature-pad-container:focus-within {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 /* Print Styles */
