@@ -319,7 +319,24 @@ visual = get_display(reshaped)            # Apply bidi algorithm
 
 **Verification**: Run `python tools/test_coordinates.py` to generate a test PDF with all checkboxes marked, then visually verify alignment.
 
-### 3. Date Field Constraints
+### 3. Text Field Position Audit
+
+**Status**: Pending
+
+**Issue**: Text field coordinates in `field_mapping.py` may be misaligned with the template PDF. While checkboxes have been fixed, text fields need verification.
+
+**Fix Required**:
+1. Generate comprehensive test PDF with all fields populated
+2. Compare each field's output position against template
+3. Adjust x/y coordinates in `field_mapping.py` as needed
+
+**Fields to verify** (80+ fields across 4 pages):
+- Page 1: Visit date, employer details, worker details, placement info
+- Page 2: Employer assessment fields (multiline text areas)
+- Page 3: Worker report fields, contract details, payment info
+- Page 4: Treatment plan, summary fields, signature section
+
+### 4. Date Field Constraints
 
 **Current Behavior**: Date fields accept free-form text input.
 
