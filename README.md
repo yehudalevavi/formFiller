@@ -436,6 +436,7 @@ docker run -p 5001:5001 pdf-form-filler
 
 - [x] **Dual signature placement** - Place the drawn signature in both the social worker signature field AND the general signature field at the bottom of page 4
 - [x] **Fix checkbox positions** - Correct the X/Y coordinates of checkbox marks in the output PDF to align properly with the template
+- [ ] **Clear form on refresh** - Reset all form fields and signature pad when page is refreshed to start fresh
 - [ ] **Verify all field positions** - Audit and fix coordinates for all text fields to ensure values appear in the correct locations on the output PDF
 - [ ] **Improved date inputs** - Add constrained date fields with date pickers or DD/MM/YYYY masks to prevent invalid date entry
 - [ ] **UX/UI makeover** - Complete redesign of the form interface for both desktop and mobile:
