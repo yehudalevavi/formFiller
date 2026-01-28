@@ -24,9 +24,47 @@ document.addEventListener('DOMContentLoaded', function() {
     let uploadedPdfFile = null;
     let pdfValidated = false;
 
+    // Clear form on page load to ensure fresh start
+    clearFormOnLoad();
+
     // Initialize signature pad
     if (signatureCanvas) {
         initSignaturePad();
+    }
+
+    // Clear all form fields on page load
+    function clearFormOnLoad() {
+        // Reset all form inputs
+        if (form) {
+            // Clear text inputs and textareas
+            const inputs = form.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                if (input.type === 'checkbox' || input.type === 'radio') {
+                    input.checked = false;
+                } else if (input.type !== 'submit' && input.type !== 'button' && input.type !== 'file') {
+                    input.value = '';
+                }
+            });
+
+            // Clear file input
+            if (pdfUpload) {
+                pdfUpload.value = '';
+            }
+        }
+
+        // Reset upload state
+        uploadedPdfFile = null;
+        pdfValidated = false;
+        if (fileNameSpan) {
+            fileNameSpan.textContent = 'לא נבחר קובץ';
+            fileNameSpan.classList.remove('has-file');
+        }
+        if (uploadStatus) {
+            uploadStatus.style.display = 'none';
+        }
+        if (uploadError) {
+            uploadError.style.display = 'none';
+        }
     }
 
     // File upload handling
@@ -88,6 +126,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (clearSignatureBtn) {
             clearSignatureBtn.addEventListener('click', clearSignature);
         }
+
+        // Clear signature on init to ensure fresh start
+        clearSignature();
     }
 
     function resizeSignatureCanvas() {
