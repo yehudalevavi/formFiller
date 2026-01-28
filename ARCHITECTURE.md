@@ -316,18 +316,13 @@ SIGNATURE_CONFIGS = [
 ]
 ```
 
-### 2. Checkbox Position Misalignment
+### 2. Checkbox Position Misalignment - FIXED
 
-**Current Behavior**: Checkbox X marks appear offset from their intended positions.
+**Status**: Resolved
 
-**Issue**: The coordinates in `field_mapping.py` for checkbox fields need adjustment.
+**Solution Applied**: All 24 checkbox fields in `field_mapping.py` have been updated with correct coordinates extracted from the template PDF using `tools/find_checkbox_positions.py`. The X marks now align properly within their respective checkbox boxes.
 
-**Fix Required**:
-1. Generate test PDF with `test_coordinates.py`
-2. Compare checkbox positions against template
-3. Adjust `x` and `y` values for all checkbox fields (approximately 25 fields)
-
-**Affected Fields**: `placement_israel`, `placement_abroad`, `was_hospitalized_yes`, `was_hospitalized_no`, `contract_employer`, `contract_worker`, `contract_other`, `contract_translated_yes`, `contract_translated_no`, `payment_check`, `payment_bank`, `payment_cash`, `payment_other`, `treatment_employer_issues`, `treatment_worker_issues`, `treatment_mediation`, `treatment_followup`, `treatment_referral`, `treatment_family_report`, `attendee_employer`, `attendee_family`, `attendee_worker`, `attendee_office_rep`, `attendee_other`
+**Verification**: Run `python tools/test_coordinates.py` to generate a test PDF with all checkboxes marked, then visually verify alignment.
 
 ### 3. Date Field Constraints
 

@@ -8,12 +8,16 @@ sys.path.insert(0, 'src')
 
 from backend.pdf_filler import fill_pdf_form
 
-# Test data - only fields that need to be filled (pre-filled fields excluded)
+# Test data - comprehensive test including ALL checkboxes
 test_data = {
     # Page 1 - Visit Date
     "visit_date_day": "27",
     "visit_date_month": "01",
     "visit_date_year": "2026",
+
+    # Page 1 - Placement checkboxes (test both)
+    "placement_israel": True,
+    "placement_abroad": True,  # Both checked to see alignment
 
     # Page 2 - Employer Assessment
     "appearance_description": "רגוע, נקי, לבוש בהתאם לעונה",
@@ -21,7 +25,9 @@ test_data = {
     "external_signs": "ללא סימנים חריגים",
     "functional_status": "עצמאי, זקוק לעזרה במעברים",
     "health_status": "תקין, סוכרת מאוזנת",
-    "was_hospitalized_no": True,
+    # Page 2 - Hospitalization checkboxes (test both)
+    "was_hospitalized_yes": True,
+    "was_hospitalized_no": True,  # Both checked to see alignment
     "cognitive_description": "תקשורת תקינה, זיכרון תקין",
     "home_maintenance": "הבית נקי ומסודר",
     "food_supply": "בן המשפחה קונה, ארוחות מסופקות",
@@ -39,8 +45,12 @@ test_data = {
     "duties_match_satisfaction": "כן, יש התאמה",
     "worker_has_friends": "כן",
 
+    # Page 3 - Contract checkboxes (test all)
     "contract_employer": True,
+    "contract_worker": True,
+    "contract_other": True,
     "contract_translated_yes": True,
+    "contract_translated_no": True,  # Both checked to see alignment
     "insurance_from": "01/01/2026",
     "insurance_to": "31/12/2026",
     "insurance_company": "הראל",
@@ -48,19 +58,33 @@ test_data = {
     "monthly_salary": "6000",
     "total_payment": "6500",
     "payment_date": "1",
+    # Page 3 - Payment checkboxes (test all)
+    "payment_check": True,
     "payment_bank": True,
+    "payment_cash": True,
+    "payment_other": True,
     "weekly_day_off": "שבת",
     "accommodation": "חדר פרטי עם מזגן",
     "notes": "הכל תקין",
 
     # Page 4 - Treatment Plan
     "treatment_essence": "המשך מעקב שוטף",
+    # Page 4 - Treatment checkboxes (test all)
+    "treatment_employer_issues": True,
+    "treatment_worker_issues": True,
+    "treatment_mediation": True,
     "treatment_followup": True,
+    "treatment_referral": True,
+    "treatment_family_report": True,
     "summary_employer": "מצב הקשיש טוב, מרוצה מהטיפול",
     "summary_caregiver": "העובדת מרוצה ומבצעת עבודתה היטב",
 
+    # Page 4 - Attendee checkboxes (test all)
     "attendee_employer": True,
+    "attendee_family": True,
     "attendee_worker": True,
+    "attendee_office_rep": True,
+    "attendee_other": True,
 
     "signer_id": "123456789",
     "social_worker_name_signature": "ישראל ישראלי",

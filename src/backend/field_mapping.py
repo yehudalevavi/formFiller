@@ -95,10 +95,10 @@ FORM_FIELDS = {
     # Input at y≈426
     "placement_start_date": {"x": 521, "y": 426, "page": 0, "max_length": 10, "align": "right"},
 
-    # Importing agency - Israel/Abroad checkboxes at y_top=408 (y_bottom≈425)
-    # ישראל at x=379-402, חו"ל at x=331-347
-    "placement_israel": {"x": 390, "y": 418, "page": 0, "checkbox": True},
-    "placement_abroad": {"x": 338, "y": 418, "page": 0, "checkbox": True},
+    # Importing agency - Israel/Abroad checkboxes
+    # Template boxes at: x≈407.6, y≈434 (Israel) and x≈351.0, y≈435 (Abroad)
+    "placement_israel": {"x": 408, "y": 424, "page": 0, "checkbox": True},
+    "placement_abroad": {"x": 352, "y": 425, "page": 0, "checkbox": True},
 
     # Agency details - פרטי לשכה מאביינת at x=218-287
     "placement_agency": {"x": 287, "y": 426, "page": 0, "max_length": 30, "align": "right"},
@@ -155,11 +155,10 @@ FORM_FIELDS = {
     # Input at y≈522
     "health_status": {"x": 545, "y": 522, "page": 1, "max_length": 200, "multiline": True, "width": 490, "line_height": 12, "align": "right"},
 
-    # האם אושפז לאחרונה - label at y_top=346 (y_bottom≈487)
-    # Checkboxes at y_top=363: כן at x=519-525, אל at x=488-497
-    # Input at y≈470
-    "was_hospitalized_yes": {"x": 522, "y": 462, "page": 1, "checkbox": True},
-    "was_hospitalized_no": {"x": 492, "y": 462, "page": 1, "checkbox": True},
+    # האם אושפז לאחרונה - Hospitalization checkboxes
+    # Template boxes at: x≈527.8, y≈480 (Yes) and x≈499.7, y≈480 (No)
+    "was_hospitalized_yes": {"x": 528, "y": 470, "page": 1, "checkbox": True},
+    "was_hospitalized_no": {"x": 500, "y": 470, "page": 1, "checkbox": True},
     "hospitalization_where": {"x": 479, "y": 462, "page": 1, "max_length": 30, "align": "right"},
     "hospitalization_duration": {"x": 196, "y": 462, "page": 1, "max_length": 20, "align": "right"},
 
@@ -223,15 +222,15 @@ FORM_FIELDS = {
     # Input at y≈412
     "worker_has_friends": {"x": 545, "y": 412, "page": 2, "max_length": 100, "align": "right"},
 
-    # תנאי העסקת העו"ז section
-    # Contract checkboxes - קיסעמה at x=497-526, דבועה at x=456-479, רחא at x=422-437
-    "contract_employer": {"x": 512, "y": 341, "page": 2, "checkbox": True},
-    "contract_worker": {"x": 467, "y": 341, "page": 2, "checkbox": True},
-    "contract_other": {"x": 430, "y": 341, "page": 2, "checkbox": True},
+    # תנאי העסקת העו"ז section - Contract checkboxes
+    # Template boxes at y≈359: x=527.8 (employer), x=482.1 (worker), x=440.0 (other), x=341.8 (yes), x=314.5 (no)
+    "contract_employer": {"x": 528, "y": 349, "page": 2, "checkbox": True},
+    "contract_worker": {"x": 482, "y": 349, "page": 2, "checkbox": True},
+    "contract_other": {"x": 440, "y": 349, "page": 2, "checkbox": True},
 
-    # Contract translated - כן at x=333, אל at x=302
-    "contract_translated_yes": {"x": 336, "y": 341, "page": 2, "checkbox": True},
-    "contract_translated_no": {"x": 308, "y": 341, "page": 2, "checkbox": True},
+    # Contract translated checkboxes
+    "contract_translated_yes": {"x": 342, "y": 349, "page": 2, "checkbox": True},
+    "contract_translated_no": {"x": 315, "y": 349, "page": 2, "checkbox": True},
 
     # Insurance dates - מ at x=167, דע at x=100
     "insurance_from": {"x": 175, "y": 341, "page": 2, "max_length": 10, "align": "right"},
@@ -246,11 +245,12 @@ FORM_FIELDS = {
     "total_payment": {"x": 420, "y": 289, "page": 2, "max_length": 10, "align": "right"},
     "payment_date": {"x": 340, "y": 289, "page": 2, "max_length": 10, "align": "right"},
 
-    # Payment method checkboxes - קיש at x=279-292, הדקפה at x=205-260, ןמוזמ at x=168-187, רחא at x=133-149
-    "payment_check": {"x": 285, "y": 275, "page": 2, "checkbox": True},
-    "payment_bank": {"x": 230, "y": 275, "page": 2, "checkbox": True},
-    "payment_cash": {"x": 177, "y": 275, "page": 2, "checkbox": True},
-    "payment_other": {"x": 141, "y": 275, "page": 2, "checkbox": True},
+    # Payment method checkboxes
+    # Template boxes at y≈293: x=295.5 (check), x=262.5 (bank), x=189.5 (cash), x=151.7 (other)
+    "payment_check": {"x": 296, "y": 283, "page": 2, "checkbox": True},
+    "payment_bank": {"x": 263, "y": 283, "page": 2, "checkbox": True},
+    "payment_cash": {"x": 190, "y": 283, "page": 2, "checkbox": True},
+    "payment_other": {"x": 152, "y": 283, "page": 2, "checkbox": True},
 
     # יום החופש השבועי and accommodation
     "weekly_day_off": {"x": 547, "y": 254, "page": 2, "max_length": 15, "align": "right"},
@@ -267,15 +267,14 @@ FORM_FIELDS = {
     # Input at y≈700
     "treatment_essence": {"x": 545, "y": 700, "page": 3, "max_length": 400, "multiline": True, "width": 490, "line_height": 12, "align": "right"},
 
-    # Treatment type checkboxes at y_from_bottom≈713
-    # טיפול בבעיות המעסיק at x=437-530, טיפול בבעיות דבוע at x=319-421
-    # גושיר at x=284-303, בקעמ at x=246-266, ךווית at x=150-228, חוויד at x=71-133
-    "treatment_employer_issues": {"x": 483, "y": 705, "page": 3, "checkbox": True},
-    "treatment_worker_issues": {"x": 370, "y": 705, "page": 3, "checkbox": True},
-    "treatment_mediation": {"x": 293, "y": 705, "page": 3, "checkbox": True},
-    "treatment_followup": {"x": 256, "y": 705, "page": 3, "checkbox": True},
-    "treatment_referral": {"x": 189, "y": 705, "page": 3, "checkbox": True},
-    "treatment_family_report": {"x": 102, "y": 705, "page": 3, "checkbox": True},
+    # Treatment type checkboxes
+    # Template boxes at y≈722-723: x=531.3, x=422.5, x=305.3, x=268.8, x=230.9, x=135.5
+    "treatment_employer_issues": {"x": 531, "y": 713, "page": 3, "checkbox": True},
+    "treatment_worker_issues": {"x": 423, "y": 713, "page": 3, "checkbox": True},
+    "treatment_mediation": {"x": 305, "y": 713, "page": 3, "checkbox": True},
+    "treatment_followup": {"x": 269, "y": 713, "page": 3, "checkbox": True},
+    "treatment_referral": {"x": 231, "y": 713, "page": 3, "checkbox": True},
+    "treatment_family_report": {"x": 136, "y": 713, "page": 3, "checkbox": True},
 
     # סיכום והתרשמות - בנוגע למעסיק at y≈634
     "summary_employer": {"x": 545, "y": 620, "page": 3, "max_length": 300, "multiline": True, "width": 490, "line_height": 12, "align": "right"},
@@ -283,13 +282,13 @@ FORM_FIELDS = {
     # בנוגע למטפל at y≈590
     "summary_caregiver": {"x": 545, "y": 575, "page": 3, "max_length": 300, "multiline": True, "width": 490, "line_height": 12, "align": "right"},
 
-    # נוכחים בביקור checkboxes at y≈537
-    # קיסעמ at x=451-474, החפשמ ןב at x=390-428, רז דבוע at x=339-366, גיצנ at x=239-313, רחא at x=204-219
-    "attendee_employer": {"x": 462, "y": 529, "page": 3, "checkbox": True},
-    "attendee_family": {"x": 409, "y": 529, "page": 3, "checkbox": True},
-    "attendee_worker": {"x": 352, "y": 529, "page": 3, "checkbox": True},
-    "attendee_office_rep": {"x": 276, "y": 529, "page": 3, "checkbox": True},
-    "attendee_other": {"x": 211, "y": 529, "page": 3, "checkbox": True},
+    # נוכחים בביקור - Attendee checkboxes
+    # Template boxes at y≈546-547: x=477.3 (employer), x=430.2 (family), x=369.2 (worker), x=316.5 (office rep), x=222.5 (other)
+    "attendee_employer": {"x": 477, "y": 537, "page": 3, "checkbox": True},
+    "attendee_family": {"x": 430, "y": 537, "page": 3, "checkbox": True},
+    "attendee_worker": {"x": 369, "y": 537, "page": 3, "checkbox": True},
+    "attendee_office_rep": {"x": 317, "y": 537, "page": 3, "checkbox": True},
+    "attendee_other": {"x": 223, "y": 537, "page": 3, "checkbox": True},
 
     # Signature section - תוהז.ת at x=197-223 (y≈511)
     "signer_id": {"x": 197, "y": 503, "page": 3, "max_length": 12, "align": "left"},
