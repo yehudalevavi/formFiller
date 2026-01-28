@@ -14,14 +14,23 @@ from bidi.algorithm import get_display
 import os
 from .field_mapping import FORM_FIELDS, HEBREW_FONT_SIZE, CHECKBOX_SIZE
 
-# Signature field configuration
-SIGNATURE_CONFIG = {
-    "page": 3,  # Page 4 (0-indexed)
-    "x": 55,    # X position (left side, under "חתימה" label)
-    "y": 420,   # Y position (aligned with signature line)
-    "width": 150,  # Max width
-    "height": 40,  # Max height
-}
+# Signature field configurations - dual placement on page 4
+SIGNATURE_CONFIGS = [
+    {
+        "page": 3,      # Page 4 (0-indexed)
+        "x": 55,        # X position (left side)
+        "y": 420,       # Y position - social worker signature area
+        "width": 150,   # Max width
+        "height": 40,   # Max height
+    },
+    {
+        "page": 3,      # Page 4 (0-indexed)
+        "x": 55,        # X position (left side)
+        "y": 335,       # Y position - bottom signature area (near visit date)
+        "width": 150,   # Max width
+        "height": 40,   # Max height
+    },
+]
 
 # Register Hebrew font
 # Try embedded font first (for deployment), then fall back to system font (for local dev)
@@ -113,7 +122,7 @@ class PDFFiller:
         # Determine the max page we need to draw on
         max_page = max(pages_data.keys()) if pages_data else 0
         if signature_data:
-            max_page = max(max_page, SIGNATURE_CONFIG["page"])
+            max_page = max(max_page, max(cfg["page"] for cfg in SIGNATURE_CONFIGS))
 
         # Draw on each page
         for page_num in range(max_page + 1):
@@ -125,9 +134,11 @@ class PDFFiller:
                 for field_name, field_value, field_config in pages_data[page_num]:
                     self._draw_field(can, field_name, field_value, field_config)
 
-            # Draw signature on its designated page
-            if signature_data and page_num == SIGNATURE_CONFIG["page"]:
-                self._draw_signature(can, signature_data)
+            # Draw signatures at all designated locations on this page
+            if signature_data:
+                for sig_config in SIGNATURE_CONFIGS:
+                    if page_num == sig_config["page"]:
+                        self._draw_signature(can, signature_data, sig_config)
 
         can.save()
         packet.seek(0)
@@ -211,8 +222,8 @@ class PDFFiller:
 
         return lines
 
-    def _draw_signature(self, can, signature_data):
-        """Draw signature image on the canvas"""
+    def _draw_signature(self, can, signature_data, config):
+        """Draw signature image on the canvas at specified location"""
         if not signature_data:
             return
 
@@ -233,8 +244,8 @@ class PDFFiller:
             img_width, img_height = img.getSize()
 
             # Calculate scale to fit within max dimensions while preserving aspect ratio
-            max_width = SIGNATURE_CONFIG["width"]
-            max_height = SIGNATURE_CONFIG["height"]
+            max_width = config["width"]
+            max_height = config["height"]
 
             scale_x = max_width / img_width if img_width > 0 else 1
             scale_y = max_height / img_height if img_height > 0 else 1
@@ -244,8 +255,8 @@ class PDFFiller:
             final_height = img_height * scale
 
             # Draw the signature image
-            x = SIGNATURE_CONFIG["x"]
-            y = SIGNATURE_CONFIG["y"]
+            x = config["x"]
+            y = config["y"]
 
             can.drawImage(img, x, y, width=final_width, height=final_height, mask='auto')
 

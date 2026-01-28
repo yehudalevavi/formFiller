@@ -302,19 +302,14 @@ visual = get_display(reshaped)            # Apply bidi algorithm
 
 ## Known Issues & Planned Fixes
 
-### 1. Signature Placement (Single Location)
+### 1. Signature Placement - FIXED
 
-**Current Behavior**: Signature is placed only in one location on page 4.
+**Status**: Resolved
 
-**Issue**: The form has two signature areas - social worker signature and a general signature field at the bottom.
-
-**Fix Required**: Modify `_draw_signature()` in `pdf_filler.py` to draw the signature image at both locations. Add second signature config:
-```python
-SIGNATURE_CONFIGS = [
-    {"page": 3, "x": 55, "y": 420, "width": 150, "height": 40},   # Social worker
-    {"page": 3, "x": 55, "y": 350, "width": 150, "height": 40},   # General (bottom)
-]
-```
+**Solution Applied**: Modified `pdf_filler.py` to support dual signature placement:
+- Changed `SIGNATURE_CONFIG` to `SIGNATURE_CONFIGS` list with two locations
+- Updated `_draw_signature()` to accept config parameter
+- Signature now renders at both y=420 (social worker area) and y=335 (bottom near visit date)
 
 ### 2. Checkbox Position Misalignment - FIXED
 
