@@ -102,6 +102,7 @@ header .subtitle {
 .form-group input[type="text"],
 .form-group input[type="tel"],
 .form-group input[type="email"],
+.form-group input[type="date"],
 .form-group textarea {
     width: 100%;
     padding: 12px;
@@ -118,10 +119,28 @@ header .subtitle {
 .form-group input[type="text"]:focus,
 .form-group input[type="tel"]:focus,
 .form-group input[type="email"]:focus,
+.form-group input[type="date"]:focus,
 .form-group textarea:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Date input specific styles */
+.form-group input[type="date"] {
+    cursor: pointer;
+    min-height: 48px;
+}
+
+/* Style the date picker icon */
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.form-group input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    background-color: rgba(102, 126, 234, 0.1);
 }
 
 .form-group textarea {
@@ -517,10 +536,16 @@ header .subtitle {
     .form-group input[type="text"],
     .form-group input[type="tel"],
     .form-group input[type="email"],
+    .form-group input[type="date"],
     .form-group textarea {
         padding: 14px 12px;
         font-size: 16px;
         border-radius: 8px;
+    }
+
+    /* Larger touch target for date inputs on mobile */
+    .form-group input[type="date"] {
+        min-height: 52px;
     }
 
     .form-group textarea {

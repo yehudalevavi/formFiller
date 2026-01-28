@@ -389,6 +389,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Convert date from YYYY-MM-DD to DD/MM/YYYY
+    function formatDateForPdf(dateValue) {
+        if (!dateValue) return '';
+        const parts = dateValue.split('-');
+        if (parts.length !== 3) return dateValue;
+        return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    }
+
     // Collect all form data
     function collectFormData() {
         const data = {};
@@ -413,6 +421,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Handle radio buttons
                 if (element.checked) {
                     data[element.name] = element.value;
+                }
+            } else if (element.type === 'date') {
+                // Handle date inputs - convert to DD/MM/YYYY format
+                const value = element.value;
+                if (value) {
+                    if (element.name === 'visit_date') {
+                        // Special handling for visit_date - split into day/month/year
+                        const parts = value.split('-');
+                        if (parts.length === 3) {
+                            data['visit_date_day'] = parts[2];
+                            data['visit_date_month'] = parts[1];
+                            data['visit_date_year'] = parts[0];
+                        }
+                    } else {
+                        // Format as DD/MM/YYYY for other date fields
+                        data[element.name] = formatDateForPdf(value);
+                    }
                 }
             } else if (element.tagName === 'TEXTAREA' || element.tagName === 'INPUT') {
                 // Handle text inputs and textareas

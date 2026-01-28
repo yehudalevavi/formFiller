@@ -438,7 +438,7 @@ docker run -p 5001:5001 pdf-form-filler
 - [x] **Fix checkbox positions** - Correct the X/Y coordinates of checkbox marks in the output PDF to align properly with the template
 - [x] **Clear form on refresh** - Reset all form fields and signature pad when page is refreshed to start fresh
 - [ ] **Verify all field positions** - Audit and fix coordinates for all text fields to ensure values appear in the correct locations on the output PDF
-- [ ] **Improved date inputs** - Add constrained date fields with date pickers or DD/MM/YYYY masks to prevent invalid date entry
+- [x] **Improved date inputs** - Add constrained date fields with native HTML5 date pickers for mobile-friendly date selection
 - [ ] **UX/UI makeover** - Complete redesign of the form interface for both desktop and mobile:
   - Modern, clean visual design
   - Improved mobile touch experience

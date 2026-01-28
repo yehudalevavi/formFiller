@@ -48,14 +48,8 @@
                 <h2>תאריך הביקור</h2>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>תאריך הביקור</label>
-                        <div class="date-group">
-                            <input type="text" name="visit_date_day" placeholder="יום" maxlength="2" class="small-input">
-                            <span>/</span>
-                            <input type="text" name="visit_date_month" placeholder="חודש" maxlength="2" class="small-input">
-                            <span>/</span>
-                            <input type="text" name="visit_date_year" placeholder="שנה" maxlength="4" class="small-input">
-                        </div>
+                        <label for="visit_date">תאריך הביקור</label>
+                        <input type="date" id="visit_date" name="visit_date" class="date-input">
                     </div>
                 </div>
             </section>
@@ -157,7 +151,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="placement_start_date">תאריך תחילת השמה</label>
-                        <input type="text" id="placement_start_date" name="placement_start_date" placeholder="DD/MM/YYYY" maxlength="10">
+                        <input type="date" id="placement_start_date" name="placement_start_date" class="date-input">
                     </div>
                     <div class="form-group">
                         <label>לשכה מייבאת</label>
@@ -205,7 +199,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="pre_placement_date">תאריך טרום השמה</label>
-                        <input type="text" id="pre_placement_date" name="pre_placement_date" placeholder="DD/MM/YYYY" maxlength="10">
+                        <input type="date" id="pre_placement_date" name="pre_placement_date" class="date-input">
                     </div>
                     <div class="form-group">
                         <label for="pre_placement_social_worker">שם העו"ס</label>
@@ -215,7 +209,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="post_placement_date">תאריך לאחר השמה</label>
-                        <input type="text" id="post_placement_date" name="post_placement_date" placeholder="DD/MM/YYYY" maxlength="10">
+                        <input type="date" id="post_placement_date" name="post_placement_date" class="date-input">
                     </div>
                     <div class="form-group">
                         <label for="post_placement_social_worker">שם העו"ס</label>
@@ -369,11 +363,11 @@
                     </div>
                     <div class="form-group">
                         <label for="insurance_from">ביטוח רפואי תקף מ-</label>
-                        <input type="text" id="insurance_from" name="insurance_from" placeholder="תאריך">
+                        <input type="date" id="insurance_from" name="insurance_from" class="date-input">
                     </div>
                     <div class="form-group">
                         <label for="insurance_to">עד</label>
-                        <input type="text" id="insurance_to" name="insurance_to" placeholder="תאריך">
+                        <input type="date" id="insurance_to" name="insurance_to" class="date-input">
                     </div>
                 </div>
 
@@ -384,7 +378,7 @@
                     </div>
                     <div class="form-group">
                         <label for="last_insurance_payment">תשלום אחרון בגין ביטוח לאומי</label>
-                        <input type="text" id="last_insurance_payment" name="last_insurance_payment" placeholder="תאריך">
+                        <input type="date" id="last_insurance_payment" name="last_insurance_payment" class="date-input">
                     </div>
                 </div>
 
@@ -517,7 +511,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="signature_date">תאריך</label>
-                        <input type="text" id="signature_date" name="signature_date" placeholder="DD/MM/YYYY">
+                        <input type="date" id="signature_date" name="signature_date" class="date-input">
                     </div>
                 </div>
             </section>
